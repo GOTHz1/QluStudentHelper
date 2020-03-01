@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_info"
+            android:icon="@drawable/nav_tongzhi"
+            android:title="学校通知"/>
+        <item
+            android:id="@+id/nav_kechengbiao"
+            android:icon="@drawable/nav_friends"
+            android:title="课程表"/>
+        <item
+            android:id="@+id/nva_location"
+            android:icon="@drawable/nav_location"
+            android:title="来校导航（校内导航）"/>
+        <item
+            android:id="@+id/nav_tianqi"
+            android:icon="@drawable/nav_tianqi"
+            android:title="天气预报"/>
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/nav_tast"
+            android:title="设置"/>
+    </group>
+</menu>
