@@ -1,14 +1,5 @@
 package com.strong.qlu_studenthelper.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,11 +7,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.android.material.navigation.NavigationView;
 import com.strong.qlu_studenthelper.R;
 import com.strong.qlu_studenthelper.WeatherMainActivity;
 import com.strong.qlu_studenthelper.fragment.WeatherFragment;
-import com.strong.qlu_studenthelper.fragment.WeatherMainFragment;
 
 public class HomeActivity extends BaseActivity   {
 
@@ -50,8 +48,10 @@ public class HomeActivity extends BaseActivity   {
 
                 switch (menuItem.getItemId()) {
                     case R.id.nav_tianqi:
-                        replaceFragment(1);
+                        replaceFragment(4);
                         break;
+                    case R.id.nva_location:
+                        replaceFragment(3);
                 }
                 mDrawerLayout.closeDrawers();
                 return true;
@@ -63,7 +63,7 @@ public class HomeActivity extends BaseActivity   {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         FragmentManager fm = getSupportFragmentManager();
         switch (id){
-            case 1:
+            case 4:
                 if(weatherFragment==null) {
                     Intent intent=new Intent(HomeActivity.this, WeatherMainActivity.class);
                     Log.d("TAG", "为空replaceFragment: ");
@@ -76,6 +76,11 @@ public class HomeActivity extends BaseActivity   {
                     Log.d("TAG", "不为空replaceFragment: ");
                 transaction.show(weatherFragment);
             }
+                break;
+            case 3:
+                Intent intent=new Intent(getApplication(),LocationMainActivity.class);
+                startActivity(intent);
+
                 break;
         }
         mDrawerLayout.closeDrawers();

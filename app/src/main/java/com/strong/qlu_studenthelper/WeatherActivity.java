@@ -1,10 +1,5 @@
 package com.strong.qlu_studenthelper;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -20,6 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.strong.qlu_studenthelper.weather.gson.Forecast;
@@ -121,12 +120,6 @@ public class WeatherActivity extends AppCompatActivity {
             loadBingPic();
         }
 
-//        navButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                drawerLayout.openDrawer(GravityCompat.START);
-//            }
-//        });
     }
 
     /**
@@ -208,8 +201,6 @@ public class WeatherActivity extends AppCompatActivity {
                             showWeatherInfo(weather);
                             Toast.makeText(WeatherActivity.this,
                                     "success to request weather data",Toast.LENGTH_SHORT).show();
-//                            Toast.makeText(WeatherActivity.this,
-//                                    "failure to request weather data2",Toast.LENGTH_SHORT).show();
                         }
                         swipeRefreshLayout.setRefreshing(false);
                     }
@@ -294,8 +285,6 @@ public class WeatherActivity extends AppCompatActivity {
         bingPicImg = (ImageView) findViewById(R.id.bing_pic_img);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-//        navButton = (Button) findViewById(R.id.nav_button);
 
     }
 }

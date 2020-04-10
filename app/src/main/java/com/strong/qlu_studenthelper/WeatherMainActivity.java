@@ -8,10 +8,6 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.strong.qlu_studenthelper.R;
-import com.strong.qlu_studenthelper.fragment.WeatherFragment;
-import com.strong.qlu_studenthelper.weather.util.LogUtil;
-
 public class WeatherMainActivity extends AppCompatActivity {
 
     @Override

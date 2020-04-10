@@ -17,30 +17,27 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-
-import com.strong.qlu_studenthelper.MainActivity;
 import com.strong.qlu_studenthelper.R;
 import com.strong.qlu_studenthelper.WeatherActivity;
 import com.strong.qlu_studenthelper.WeatherMainActivity;
-import com.strong.qlu_studenthelper.activity.HomeActivity;
-import com.strong.qlu_studenthelper.fragment.WeatherFragment;
-import com.strong.qlu_studenthelper.fragment.WeatherMainFragment;
 import com.strong.qlu_studenthelper.weather.db.City;
 import com.strong.qlu_studenthelper.weather.db.County;
 import com.strong.qlu_studenthelper.weather.db.Province;
 import com.strong.qlu_studenthelper.weather.util.HttpUtil;
-import com.strong.qlu_studenthelper.weather.util.LogUtil;
 import com.strong.qlu_studenthelper.weather.util.Utility;
+
 import org.jetbrains.annotations.NotNull;
 import org.litepal.LitePal;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+
 import static android.content.ContentValues.TAG;
 
 public class ChooseAreaFragment extends Fragment {
@@ -194,7 +191,6 @@ public class ChooseAreaFragment extends Fragment {
             listView.setSelection(0);
             currentLevel = LEVEL_CITY;
         } else {
-            LogUtil.d(TAG,"queryCities:else:executed");
             int provinceCode = selectedProvince.getProvinceCode();
             String address = "http://guolin.tech/api/china/" + provinceCode;
             queryFromServer(address,"city");

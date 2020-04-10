@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.view.Window;
 
 import com.strong.qlu_studenthelper.R;
-import com.strong.qlu_studenthelper.weather.util.LogUtil;
 
 public class Logo extends Activity {
 
@@ -24,7 +23,6 @@ public class Logo extends Activity {
                 startActivity(intent);
                 Logo.this.finish();
                 finish();
-                LogUtil.d("TAG","Logo");
             }
         }, 2200);
     }

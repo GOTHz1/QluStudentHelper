@@ -1,11 +1,7 @@
 package com.strong.qlu_studenthelper.weather.util;
 
-import android.util.Log;
-
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-
-import static org.litepal.LitePalBase.TAG;
 
 public class HttpUtil {
 
@@ -16,7 +12,5 @@ public class HttpUtil {
                 .build();
 
         client.newCall(request).enqueue(callback);
-        Log.d(TAG, "sendOkHttpRequest: executed");
-
     }
 }
