@@ -17,14 +17,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.strong.qlu_studenthelper.R;
-import com.strong.qlu_studenthelper.weather.gson.Forecast;
 import com.strong.qlu_studenthelper.weather.gson.Weather;
 import com.strong.qlu_studenthelper.weather.service.AutoUpdateService;
 import com.strong.qlu_studenthelper.weather.util.HttpUtil;
@@ -164,7 +162,7 @@ public class WeatherFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (weather != null && "ok".equals(weather.status)) {
+                        if (weather != null && "ok".equals(weather.getHeWeather6().get(0).getStatusX())) {
                             SharedPreferences.Editor editor = PreferenceManager
                                     .getDefaultSharedPreferences(getActivity())
                                     .edit();
@@ -189,40 +187,36 @@ public class WeatherFragment extends Fragment {
 
     private void showWeatherInfo(Weather weather) {
 
-        String cityName = weather.basic.cityName;
-        String updateTime = weather.basic.update.updateTime.split(" ")[1];
-        String degree = weather.now.temperature + "°C";
-        String weatherInfo = weather.now.more.info;
+        String cityName = weather.getHeWeather6().get(0).getBasicX().getLocation();
+        String updateTime = weather.getHeWeather6().get(0).getUpdate().getLoc();
+        String degree=weather.getHeWeather6().get(0).getNowX().getTmp()+"℃";
+        String weatherInfo=weather.getHeWeather6().get(0).getNowX().getCond_txt();
         titleCity.setText(cityName);
         titleUpdateTime.setText(updateTime);
         degreeText.setText(degree);
         weatherInfoText.setText(weatherInfo);
         forecastLayout.removeAllViews();
 
-        for (Forecast forecast : weather.forecastList) {
+        for (int i=0;i<3;i++) {
             View view = LayoutInflater.from(getActivity()).inflate(R.layout.forecast_item, forecastLayout, false);
-            TextView dataText = (TextView) view.findViewById(R.id.data_text);
+            TextView dateText = (TextView) view.findViewById(R.id.data_text);
             TextView infoText = (TextView) view.findViewById(R.id.info_text);
             TextView maxText = (TextView) view.findViewById(R.id.max_text);
             TextView minText = (TextView) view.findViewById(R.id.min_text);
-
-            dataText.setText(forecast.date);
-            infoText.setText(forecast.more.info);
-            maxText.setText(forecast.temparature.max);
-            minText.setText(forecast.temparature.min);
+            dateText.setText(weather.getHeWeather6().get(0).getDaily_forecast().get(i).getDate());
+            infoText.setText(weather.getHeWeather6().get(0).getDaily_forecast().get(i).getCond_txt_n());
+            maxText.setText(weather.getHeWeather6().get(0).getDaily_forecast().get(i).getTmp_max());
+            minText.setText(weather.getHeWeather6().get(0).getDaily_forecast().get(i).getTmp_min());
             forecastLayout.addView(view);
         }
 
 
-        String comfort = "舒适度：" + weather.suggestion.comfort.info;
-        String carwash = "洗车指数：" + weather.suggestion.carWash.info;
-        String sport= "运动建议：" + weather.suggestion.sport.info;
-        comfortText.setText(comfort);
-        carWashText.setText(carwash);
-        sportText.setText(sport);
+        comfortText.setText("舒适度："+weather.getHeWeather6().get(0).getLifestyle().get(0).getTxt());
+        carWashText.setText("洗车指数："+weather.getHeWeather6().get(0).getLifestyle().get(6).getTxt());
+        sportText.setText("运动指数："+weather.getHeWeather6().get(0).getLifestyle().get(3).getTxt());
 
         weatherLayout.setVisibility(View.VISIBLE);
-        if (weather != null && "ok".equals(weather.status)) {
+        if (weather != null && "ok".equals(weather.getHeWeather6().get(0).getStatusX())) {
             Intent intent = new Intent(getActivity(), AutoUpdateService.class);
             startActivity(intent);
         } else {

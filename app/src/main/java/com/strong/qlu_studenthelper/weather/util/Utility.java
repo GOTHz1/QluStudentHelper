@@ -1,3 +1,4 @@
+
 package com.strong.qlu_studenthelper.weather.util;
 
 import android.text.TextUtils;
@@ -90,14 +91,26 @@ public class Utility {
      */
     public static Weather handleWeatherResponse(String response) {
         try {
+
+            // 将整个json实例化保存在jsonObject中
             JSONObject jsonObject = new JSONObject(response);
-            JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
+           /* // 从jsonObject中取出键为"HeWeather6"的数据,并保存在数组中
+            JSONArray jsonArray = jsonObject.getJSONArray("HeWeather6");
+            // 取出数组中的第一项,并以字符串形式保存
             String weatherContent = jsonArray.getJSONObject(0).toString();
-            return new Gson().fromJson(weatherContent, Weather.class);
+            // 返回通过Gson解析后的Weather对象*/
+            Gson g=new Gson();
+            Weather weather=  g.fromJson(jsonObject.toString(),Weather.class);
+
+            return weather;
+
         } catch (Exception e) {
             e.printStackTrace();
+
+
         }
         return null;
+
     }
 
 }

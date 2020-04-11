@@ -45,13 +45,15 @@ public class HomeActivity extends BaseActivity   {
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
                 switch (menuItem.getItemId()) {
                     case R.id.nav_tianqi:
                         replaceFragment(4);
                         break;
                     case R.id.nva_location:
                         replaceFragment(3);
+                        break;
+                    case R.id.nav_setting:
+                        replaceFragment(5);
                 }
                 mDrawerLayout.closeDrawers();
                 return true;
@@ -68,9 +70,6 @@ public class HomeActivity extends BaseActivity   {
                     Intent intent=new Intent(HomeActivity.this, WeatherMainActivity.class);
                     Log.d("TAG", "为空replaceFragment: ");
                     startActivity(intent);
-
-//                    WeatherMainFragment weatherMainFragment = new WeatherMainFragment();
-//                    fm.beginTransaction().replace(R.id.main_home,weatherMainFragment).commit();
                 }
                 else {
                     Log.d("TAG", "不为空replaceFragment: ");
@@ -81,6 +80,8 @@ public class HomeActivity extends BaseActivity   {
                 Intent intent=new Intent(getApplication(),LocationMainActivity.class);
                 startActivity(intent);
 
+                break;
+            case 5:
                 break;
         }
         mDrawerLayout.closeDrawers();

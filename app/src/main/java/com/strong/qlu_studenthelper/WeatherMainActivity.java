@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,7 +19,6 @@ public class WeatherMainActivity extends AppCompatActivity {
         if(prefs.getString("weather",null)!=null)
         {
             Intent intent=new Intent(this,WeatherActivity.class);
-            Log.d("TAG", "GO WeatherFragment: ");
             startActivity(intent);
             finish();
         }

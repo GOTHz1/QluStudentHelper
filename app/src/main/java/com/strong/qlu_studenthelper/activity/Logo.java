@@ -24,6 +24,6 @@ public class Logo extends Activity {
                 Logo.this.finish();
                 finish();
             }
-        }, 2200);
+        }, 20);
     }
 }
