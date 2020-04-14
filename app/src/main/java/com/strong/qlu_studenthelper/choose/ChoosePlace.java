@@ -6,7 +6,9 @@ import android.widget.AutoCompleteTextView;
 
 import com.strong.qlu_studenthelper.R;
 
-
+/**
+ *
+ */
 public class ChoosePlace {
     private static String[] placeNames = {
             "四号楼", "三号楼","一号楼", "汇文楼","实验楼","主楼","艺术楼",

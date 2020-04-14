@@ -15,7 +15,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
-    android:text="geguanhui@outlook.com"
+    android:text="gothz1@outlook.com"
     android:textColor="#fff"
     android:textSize="14sp"/>
     <TextView

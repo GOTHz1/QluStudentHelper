@@ -32,12 +32,9 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class WeatherActivity extends AppCompatActivity {
-    String TAG="TAG";
-
     public DrawerLayout drawerLayout;
-
     public SwipeRefreshLayout swipeRefresh;
-
+    String TAG = "TAG";
     private ScrollView weatherLayout;
 
     private TextView titleCity;
@@ -75,29 +72,29 @@ public class WeatherActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
         setContentView(R.layout.activity_weather);
-        // 初始化各控件
-        bingPicImg = (ImageView) findViewById(R.id.bing_pic_img);
-        weatherLayout = (ScrollView) findViewById(R.id.weather_layout);
-        titleCity = (TextView) findViewById(R.id.title_city);
-        titleUpdateTime = (TextView) findViewById(R.id.title_update_time);
-        degreeText = (TextView) findViewById(R.id.degree_text);
-        weatherInfoText = (TextView) findViewById(R.id.weather_info_text);
-        forecastLayout = (LinearLayout) findViewById(R.id.forecast_layout);
-        windDir = (TextView) findViewById(R.id.wind_dir_text);
-        windSc = (TextView) findViewById(R.id.win_sc_text);
-        windSpd =findViewById(R.id.wind_spd_text);
-        comfortText = (TextView) findViewById(R.id.comfort_text);
-        carWashText = (TextView) findViewById(R.id.car_wash_text);
-        sportText = (TextView) findViewById(R.id.sport_text);
-        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+
+        bingPicImg = findViewById(R.id.bing_pic_img);
+        weatherLayout = findViewById(R.id.weather_layout);
+        titleCity = findViewById(R.id.title_city);
+        titleUpdateTime = findViewById(R.id.title_update_time);
+        degreeText = findViewById(R.id.degree_text);
+        weatherInfoText = findViewById(R.id.weather_info_text);
+        forecastLayout = findViewById(R.id.forecast_layout);
+        windDir = findViewById(R.id.wind_dir_text);
+        windSc = findViewById(R.id.win_sc_text);
+        windSpd = findViewById(R.id.wind_spd_text);
+        comfortText = findViewById(R.id.comfort_text);
+        carWashText = findViewById(R.id.car_wash_text);
+        sportText = findViewById(R.id.sport_text);
+        swipeRefresh = findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout = findViewById(R.id.drawer_layout);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String weatherString = prefs.getString("weather", null);
         if (weatherString != null) {
             // 有缓存时直接解析天气数据
             Weather weather = Utility.handleWeatherResponse(weatherString);
-            mWeatherId=weather.getHeWeather6().get(0).getBasicX().getCid();
+            mWeatherId = weather.getHeWeather6().get(0).getBasicX().getCid();
             showWeatherInfo(weather);
         } else {
             // 无缓存时去服务器查询天气
@@ -123,7 +120,7 @@ public class WeatherActivity extends AppCompatActivity {
      * 根据天气id请求城市天气信息。
      */
     public void requestWeather(final String weatherId) {
-        final String weatherUrl2= "https://free-api.heweather.com/s6/weather?location="+weatherId+"&key=5cfa71f0523045cbbc2a915848c89ad4";
+        final String weatherUrl2 = "https://free-api.heweather.com/s6/weather?location=" + weatherId + "&key=5cfa71f0523045cbbc2a915848c89ad4";
         Log.d(TAG, weatherUrl2);
         HttpUtil.sendOkHttpRequest(weatherUrl2, new Callback() {
             @Override
@@ -162,7 +159,6 @@ public class WeatherActivity extends AppCompatActivity {
         });
 
 
-
     }
 
 
@@ -199,8 +195,8 @@ public class WeatherActivity extends AppCompatActivity {
     private void showWeatherInfo(Weather weather) {
         String cityName = weather.getHeWeather6().get(0).getBasicX().getLocation();
         String updateTime = weather.getHeWeather6().get(0).getUpdate().getLoc();
-        String degree=weather.getHeWeather6().get(0).getNowX().getTmp()+"℃";
-        String weatherInfo=weather.getHeWeather6().get(0).getNowX().getCond_txt();
+        String degree = weather.getHeWeather6().get(0).getNowX().getTmp() + "℃";
+        String weatherInfo = weather.getHeWeather6().get(0).getNowX().getCond_txt();
         titleCity.setText(cityName);
         titleUpdateTime.setText(updateTime);
         degreeText.setText(degree);
@@ -209,12 +205,12 @@ public class WeatherActivity extends AppCompatActivity {
         windSpd.setText(weather.getHeWeather6().get(0).getNowX().getWind_spd());
         weatherInfoText.setText(weatherInfo);
         forecastLayout.removeAllViews();
-        for (int i=0;i<3;i++) {
+        for (int i = 0; i < 3; i++) {
             View view = LayoutInflater.from(this).inflate(R.layout.forecast_item, forecastLayout, false);
-            TextView dateText = (TextView) view.findViewById(R.id.data_text);
-            TextView infoText = (TextView) view.findViewById(R.id.info_text);
-            TextView maxText = (TextView) view.findViewById(R.id.max_text);
-            TextView minText = (TextView) view.findViewById(R.id.min_text);
+            TextView dateText = view.findViewById(R.id.data_text);
+            TextView infoText = view.findViewById(R.id.info_text);
+            TextView maxText = view.findViewById(R.id.max_text);
+            TextView minText = view.findViewById(R.id.min_text);
             dateText.setText(weather.getHeWeather6().get(0).getDaily_forecast().get(i).getDate());
             infoText.setText(weather.getHeWeather6().get(0).getDaily_forecast().get(i).getCond_txt_n());
             maxText.setText(weather.getHeWeather6().get(0).getDaily_forecast().get(i).getTmp_max());
@@ -222,9 +218,9 @@ public class WeatherActivity extends AppCompatActivity {
 
             forecastLayout.addView(view);
         }
-        comfortText.setText("舒适度："+weather.getHeWeather6().get(0).getLifestyle().get(0).getTxt());
-        carWashText.setText("洗车指数："+weather.getHeWeather6().get(0).getLifestyle().get(6).getTxt());
-        sportText.setText("运动指数："+weather.getHeWeather6().get(0).getLifestyle().get(3).getTxt());
+        comfortText.setText("舒适度：" + weather.getHeWeather6().get(0).getLifestyle().get(0).getTxt());
+        carWashText.setText("洗车指数：" + weather.getHeWeather6().get(0).getLifestyle().get(6).getTxt());
+        sportText.setText("运动指数：" + weather.getHeWeather6().get(0).getLifestyle().get(3).getTxt());
 
         weatherLayout.setVisibility(View.VISIBLE);
         Intent intent = new Intent(this, AutoUpdateService.class);

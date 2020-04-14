@@ -3,7 +3,6 @@ package com.strong.qlu_studenthelper.activity;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
@@ -26,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 
@@ -63,7 +63,7 @@ import com.strong.qlu_studenthelper.schoolgate.Point;
 import java.util.Arrays;
 
 
-public class LocationMainActivity extends BaseActivityLocation {
+public class LocationMainActivity extends AppCompatActivity {
     /**
      * 手指按下的点为(x1, y1)手指离开屏幕的点为(x2, y2)
      */
@@ -94,13 +94,12 @@ public class LocationMainActivity extends BaseActivityLocation {
 
     public float[] values, r, gravity, geomagnetic;
     /**
-     * 景点信息
+     * 地点信息
      */
     public View view;
 
     private FloatingActionsMenu floatingActionsMenu;
 
-    public ImageButton buttonSearch;
 
     private float azimuth;
 
@@ -162,9 +161,7 @@ public class LocationMainActivity extends BaseActivityLocation {
         r = new float[9];//
         geomagnetic = new float[3];//用来保存地磁传感器的值
 
-        myOrientationListener = new MyOrientationListener(
-                getApplicationContext());
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        myOrientationListener = new MyOrientationListener(getApplicationContext());
         mMapView  = findViewById(R.id.bmapView);
         Toast.makeText(LocationMainActivity.this,mBaiduMap+"",Toast.LENGTH_SHORT).show();
         mBaiduMap = mMapView.getMap();
@@ -392,12 +389,13 @@ public class LocationMainActivity extends BaseActivityLocation {
      * @param twoPoints
      */
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent twoPoints){
-        if(requestCode!=resultCode) return;
-        DrawGraph drawGraph=new DrawGraph(mBaiduMap,twoPoints);
+    protected void onActivityResult(int requestCode, int resultCode, Intent twoPoints) {
+        super.onActivityResult(requestCode, resultCode, twoPoints);
+        if (requestCode != resultCode) return;
+        DrawGraph drawGraph = new DrawGraph(mBaiduMap, twoPoints);
         drawGraph.start();
 
-        while(drawGraph.isAlive()) {
+        while (drawGraph.isAlive()) {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
@@ -405,9 +403,9 @@ public class LocationMainActivity extends BaseActivityLocation {
             }
         }
 
-        CardView cardView=findViewById(R.id.distance_cardView);
-        TextView textView=findViewById(R.id.text);
-        BottomAniHandler handler=new BottomAniHandler(cardView,textView);
+        CardView cardView = findViewById(R.id.distance_cardView);
+        TextView textView = findViewById(R.id.text);
+        BottomAniHandler handler = new BottomAniHandler(cardView, textView);
         handler.sendMessage();
     }
 

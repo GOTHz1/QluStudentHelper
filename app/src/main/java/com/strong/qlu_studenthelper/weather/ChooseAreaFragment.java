@@ -20,7 +20,6 @@ import androidx.fragment.app.Fragment;
 
 import com.strong.qlu_studenthelper.R;
 import com.strong.qlu_studenthelper.WeatherActivity;
-import com.strong.qlu_studenthelper.WeatherMainActivity;
 import com.strong.qlu_studenthelper.weather.db.City;
 import com.strong.qlu_studenthelper.weather.db.County;
 import com.strong.qlu_studenthelper.weather.db.Province;
@@ -60,39 +59,16 @@ public class ChooseAreaFragment extends Fragment {
 
     private List<String> dataList = new ArrayList<>();
 
-    /**
-     * province list
-     */
     private List<Province> provinceList;
 
-    /**
-     * municipal list
-     */
     private List<City> cityList;
 
-    /**
-     * county list
-     */
     private List<County> countyList;
 
-    /**
-     * selected province
-     */
     private Province selectedProvince;
 
-    /**
-     * selected city
-     */
     private City selectedCity;
 
-    /**
-     * selected county
-     */
-//    private County selectedCounty;
-
-    /**
-     * current level
-     */
     private int currentLevel;
 
     @Nullable
@@ -121,14 +97,12 @@ public class ChooseAreaFragment extends Fragment {
                     queryCounties();
                 } else if (currentLevel == LEVEL_COUNTY) {
                     String weatherId = countyList.get(i).getWeatherId();
-
-                    // determine whether an object belongs to the instance of a class
-                    if (getActivity() instanceof WeatherMainActivity) {
+                    if (getActivity() instanceof WeatherActivity) {
                         Intent intent = new Intent(getActivity(), WeatherActivity.class);
                         intent.putExtra("weather_id", weatherId);
                         Log.d("TAG", "start WeatherFragment: ");
                         startActivity(intent);
-                    } else if (getActivity() instanceof WeatherActivity){
+                    } else if (getActivity() instanceof WeatherActivity) {
                         WeatherActivity activity = (WeatherActivity) getActivity();
                         activity.drawerLayout.closeDrawers();
                         activity.swipeRefresh.setRefreshing(true);
@@ -160,7 +134,7 @@ public class ChooseAreaFragment extends Fragment {
         titleText.setText("中国");
         backButton.setVisibility(View.GONE);
         provinceList = LitePal.findAll(Province.class);
-        if (provinceList.size() > 0 ) {
+        if (provinceList.size() > 0) {
             dataList.clear();
             for (Province province : provinceList) {
                 dataList.add(province.getProvinceName());
@@ -171,7 +145,7 @@ public class ChooseAreaFragment extends Fragment {
         } else {
             String address = "http://guolin.tech/api/china";
             Log.d(TAG, "queryProvinces:else: executed");
-            queryFromServer(address,"province");
+            queryFromServer(address, "province");
         }
     }
 
@@ -182,7 +156,7 @@ public class ChooseAreaFragment extends Fragment {
         titleText.setText(selectedProvince.getProvinceName());
         backButton.setVisibility(View.VISIBLE);
         cityList = LitePal.where("provinceid = ?", String.valueOf(selectedProvince.getId())).find(City.class);
-        if (cityList.size() > 0 ) {
+        if (cityList.size() > 0) {
             dataList.clear();
             for (City city : cityList) {
                 dataList.add(city.getCityName());
@@ -193,7 +167,7 @@ public class ChooseAreaFragment extends Fragment {
         } else {
             int provinceCode = selectedProvince.getProvinceCode();
             String address = "http://guolin.tech/api/china/" + provinceCode;
-            queryFromServer(address,"city");
+            queryFromServer(address, "city");
         }
     }
 
@@ -204,7 +178,7 @@ public class ChooseAreaFragment extends Fragment {
         titleText.setText(selectedCity.getCityName());
         backButton.setVisibility(View.VISIBLE);
         countyList = LitePal.where("cityid = ?", String.valueOf(selectedCity.getId())).find(County.class);
-        if (countyList.size() > 0 ) {
+        if (countyList.size() > 0) {
             dataList.clear();
             for (County county : countyList) {
                 dataList.add(county.getCountyName());
@@ -216,7 +190,7 @@ public class ChooseAreaFragment extends Fragment {
             int provinceCode = selectedProvince.getProvinceCode();
             int cityCode = selectedCity.getCityCode();
             String address = "http://guolin.tech/api/china/" + provinceCode + "/" + cityCode;
-            queryFromServer(address,"county");
+            queryFromServer(address, "county");
         }
     }
 
@@ -267,7 +241,7 @@ public class ChooseAreaFragment extends Fragment {
                         closeProgressDialog();
                         if (e.toString().contains("closed")) {
                             Toast.makeText(getContext(), "connect is cancel", Toast.LENGTH_SHORT).show();
-                        } else if (e.toString().contains("SocketTimeoutException")){
+                        } else if (e.toString().contains("SocketTimeoutException")) {
                             Toast.makeText(getContext(), "failure to load:timeout", Toast.LENGTH_SHORT).show();
                         } else if (e.toString().contains("ConnectException")) {
                             Toast.makeText(getContext(), "failure to load:timeout:ConnectionException", Toast.LENGTH_SHORT).show();

@@ -275,10 +275,6 @@ public class Weather {
         }
 
         public static class UpdateBean {
-            /**
-             * loc : 2017-10-26 23:09
-             * utc : 2017-10-26 15:09
-             */
 
             private String loc;
             private String utc;
