@@ -20,9 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.WebActivity"></activity>
+        <activity android:name=".activity.MyInfo"></activity>
+        <activity android:name=".activity.WebActivity" />
         <activity android:name=".activity.LocationMainActivity" />
-        <activity android:name=".WeatherActivity" />
+        <activity android:name=".activity.WeatherActivity" />
         <activity android:name=".activity.BaseActivity" />
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.Logo">
@@ -32,10 +33,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".mainFunction.Attractions" />
-        <activity android:name=".mainFunction.Navigation" />
-        <activity android:name=".mainFunction.FromPointToPoint" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".location.mainFunction.Navigation" />
+        <activity android:name=".location.mainFunction.FromPointToPoint" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -56,7 +55,7 @@
             android:enabled="true"
             android:process=":remote">
             <intent-filter>
-                <action android:name="com.baidu.location.service_v2.2"></action>
+                <action android:name="com.baidu.location.service_v2.2" />
             </intent-filter>
         </service>
     </application>

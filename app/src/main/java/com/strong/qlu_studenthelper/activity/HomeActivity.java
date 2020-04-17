@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,25 +20,28 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
 import com.strong.qlu_studenthelper.R;
-import com.strong.qlu_studenthelper.WeatherActivity;
 import com.strong.qlu_studenthelper.fragment.NewsFragment;
 
 public class HomeActivity extends BaseActivity   {
 
     private FragmentManager fragmentManager;
     private DrawerLayout mDrawerLayout;
-
-
+    private FrameLayout contextFrameLayout;
+    private TextView contextText;
+    NavigationView navView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         final Toolbar toolbar = findViewById(R.id.toolbar);
+        contextFrameLayout=findViewById(R.id.context_Fragment);
+
+        contextText=findViewById(R.id.context_text);
         fragmentManager = getSupportFragmentManager();
         setSupportActionBar(toolbar);
         mDrawerLayout = findViewById(R.id.draw_layout);
-        NavigationView navView = findViewById(R.id.nav_view);
+         navView = findViewById(R.id.nav_view);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -45,26 +51,29 @@ public class HomeActivity extends BaseActivity   {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
+                    case  R.id.nav_kechengbiao://课表
+                        replaceFragment(2);
+
+                        break;
                     case R.id.nav_tianqi:
-                        replaceFragment(4);
+                        replaceFragment(4);//天气
 
                         break;
                     case R.id.nva_location:
                         replaceFragment(3);
 
                         break;
-                    case R.id.nav_setting:
+                    case R.id.nav_setting://设置
                         replaceFragment(5);
 
                         break;
-                    case R.id.nav_info:
+                    case R.id.nav_info://工大要闻
                         replaceFragment(1);
                         toolbar.setTitle("工大要闻");
                         break;
-                        case R.id.nav_kechengbiao:
-                        replaceFragment(1);
 
-                        break;
+
+
                 }
                 mDrawerLayout.closeDrawers();
                 return true;
@@ -73,24 +82,30 @@ public class HomeActivity extends BaseActivity   {
         });
     }
     private void replaceFragment(int id){
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        FragmentManager fm = getSupportFragmentManager();
         switch (id){
             case 1:
+                contextText.setVisibility(View.INVISIBLE);
+
                replaceFragment(new NewsFragment());
                break;
-            case 4:
-                    Intent intent=new Intent(HomeActivity.this, WeatherActivity.class);
-                    startActivity(intent);
+            case 2: //课程表
+
+                contextFrameLayout.setVisibility(View.VISIBLE);
+                Intent intent2=new Intent(getApplication(),MyInfo.class);
+                startActivity(intent2);
                 break;
             case 3:
                 Intent intent1=new Intent(getApplication(),LocationMainActivity.class);
                 startActivity(intent1);
                 break;
+            case 4:
+                Intent intent=new Intent(HomeActivity.this, WeatherActivity.class);
+                startActivity(intent);
+                break;
+
             case 5:
                 break;
-            case 2: //课程表
-                break;
+
         }
         mDrawerLayout.closeDrawers();
     }

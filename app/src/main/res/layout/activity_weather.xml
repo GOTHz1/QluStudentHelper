@@ -48,7 +48,7 @@
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <fragment
-            android:id="@id/choose_area_fragment"
+            android:id="@+id/choose_area_fragment"
             android:name="com.strong.qlu_studenthelper.weather.ChooseAreaFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -22,6 +22,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
+            <TextView
+                android:id="@+id/context_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textStyle="italic"
+                android:textColor="#521"
+                android:text="\n\n\n    国     无工不强！\n\n    志以工业兴邦！"
+                android:textSize="45dp"/>
         </FrameLayout>
 
     </LinearLayout>

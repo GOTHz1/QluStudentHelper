@@ -42,23 +42,23 @@ import com.baidu.mapapi.model.LatLng;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.strong.qlu_studenthelper.R;
-import com.strong.qlu_studenthelper.animation.TopAniHandlerHide;
-import com.strong.qlu_studenthelper.animation.TopAniHandlerShow;
-import com.strong.qlu_studenthelper.attractions.Attractions_ifo;
-import com.strong.qlu_studenthelper.attractions.Scenic;
-import com.strong.qlu_studenthelper.choose.ChoosePlace;
-import com.strong.qlu_studenthelper.imageProcessing.ImageProcessing;
-import com.strong.qlu_studenthelper.mainFunction.FromPointToPoint;
-import com.strong.qlu_studenthelper.position.LocateAnimation;
-import com.strong.qlu_studenthelper.position.LocationSetter;
-import com.strong.qlu_studenthelper.position.MyLocationListener;
-import com.strong.qlu_studenthelper.position.MyOrientationListener;
-import com.strong.qlu_studenthelper.position.ReloacateAnimationForAll;
-import com.strong.qlu_studenthelper.schoolgate.BottomAniHandler;
-import com.strong.qlu_studenthelper.schoolgate.Draw;
-import com.strong.qlu_studenthelper.schoolgate.DrawGraph;
-import com.strong.qlu_studenthelper.schoolgate.MyGraph;
-import com.strong.qlu_studenthelper.schoolgate.Point;
+import com.strong.qlu_studenthelper.location.animation.TopAniHandlerHide;
+import com.strong.qlu_studenthelper.location.animation.TopAniHandlerShow;
+import com.strong.qlu_studenthelper.location.attractions.Attractions_ifo;
+import com.strong.qlu_studenthelper.location.attractions.Scenic;
+import com.strong.qlu_studenthelper.location.choose.ChoosePlace;
+import com.strong.qlu_studenthelper.location.imageProcessing.ImageProcessing;
+import com.strong.qlu_studenthelper.location.mainFunction.FromPointToPoint;
+import com.strong.qlu_studenthelper.location.position.LocateAnimation;
+import com.strong.qlu_studenthelper.location.position.LocationSetter;
+import com.strong.qlu_studenthelper.location.position.MyLocationListener;
+import com.strong.qlu_studenthelper.location.position.MyOrientationListener;
+import com.strong.qlu_studenthelper.location.position.ReloacateAnimationForAll;
+import com.strong.qlu_studenthelper.location.schoolgate.BottomAniHandler;
+import com.strong.qlu_studenthelper.location.schoolgate.Draw;
+import com.strong.qlu_studenthelper.location.schoolgate.DrawGraph;
+import com.strong.qlu_studenthelper.location.schoolgate.MyGraph;
+import com.strong.qlu_studenthelper.location.schoolgate.Point;
 
 import java.util.Arrays;
 
@@ -85,7 +85,7 @@ public class LocationMainActivity extends AppCompatActivity {
     private static AutoCompleteTextView autoCompleteTextView;
 
     LocationClient locationClient;
-
+    //传感器
     private SensorManager manager;
 
     private MySensorEventListener listener;
@@ -97,10 +97,10 @@ public class LocationMainActivity extends AppCompatActivity {
      * 地点信息
      */
     public View view;
-
+    //悬浮按钮
     private FloatingActionsMenu floatingActionsMenu;
 
-
+    //
     private float azimuth;
 
     public static boolean flag = false;
@@ -205,8 +205,7 @@ public class LocationMainActivity extends AppCompatActivity {
                 new ReloacateAnimationForAll(mBaiduMap,-59.0f,105.0f,18.134295f,36.5589614800,116.8179893400).start();
                 mBaiduMap.clear();
 //                Draw.drawLines(mBaiduMap,MyGraph.edges);
-                Draw.drawPoints(mBaiduMap,Arrays.copyOfRange(MyGraph.points,1,20));
-
+                Draw.drawPoints(mBaiduMap,Arrays.copyOfRange(MyGraph.points,1,13));
                 flag2=true;
                 CardView cardView=findViewById(R.id.cardTop);
                 cardView.setClickable(true);
@@ -239,7 +238,7 @@ public class LocationMainActivity extends AppCompatActivity {
                 if(!flag)return;
                 flag=false;
                 locationMainActivity.findViewById(R.id.card).setVisibility(View.INVISIBLE);
-                new ReloacateAnimationForAll(mBaiduMap,-59.0f,105.0f,18.134295f,36.56454845994154,116.80536759271781).start();
+                new ReloacateAnimationForAll(mBaiduMap,-59.0f,105.0f,18.134295f,36.563234,116.818079).start();
             }
 
             @Override
@@ -247,7 +246,7 @@ public class LocationMainActivity extends AppCompatActivity {
                 if(!flag)return false;
                 flag=false;
                 locationMainActivity.findViewById(R.id.card).setVisibility(View.INVISIBLE);
-                new ReloacateAnimationForAll(mBaiduMap,-59.0f,105.0f,18.134295f,36.56454845994154,116.80536759271781).start();
+                new ReloacateAnimationForAll(mBaiduMap,-59.0f,105.0f,18.134295f,36.563234,116.818079).start();
                 return false;
             }
         });
@@ -272,17 +271,17 @@ public class LocationMainActivity extends AppCompatActivity {
                             i.getAttractionsPoint().latitude==marker.getPosition().latitude ){
 
                         imageView.setImageBitmap(ImageProcessing.ChangeXY(i,locationMainActivity));
-                        textView.setText("景点名：" + i.getName() +  "\n\n" + "所在位置：" + i.getAttractionsPoint().index);
+                        textView.setText("地点名：" + i.getName() +  "\n\n" + "所在位置：" + i.getLocation());
                         textView02.setText(i.getIntroduce());
                         break;
                     }
                 }
                 if (textView.getText().toString().equals("")){
-                    Bitmap bitmap = ImageProcessing.ChangeXY(new Scenic(R.drawable.zhulou,"","","",
+                    Bitmap bitmap = ImageProcessing.ChangeXY(new Scenic(R.drawable.tushuguan,"","","",
                             new Point(0,0,"",0)),locationMainActivity);
                     imageView.setImageBitmap(bitmap);
-                    textView.setText("黑龙江大学知名地标\n区域未录入");
-                    textView02.setText("暂无详细信息，欢迎小伙伴投稿\n投稿邮箱地址：814484626@qq.com");
+                    textView.setText("未知地标\n区域未录入");
+                    textView02.setText("无");
                 }
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 

@@ -19,7 +19,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.strong.qlu_studenthelper.R;
-import com.strong.qlu_studenthelper.WeatherActivity;
+import com.strong.qlu_studenthelper.activity.HomeActivity;
+import com.strong.qlu_studenthelper.activity.WeatherActivity;
 import com.strong.qlu_studenthelper.weather.db.City;
 import com.strong.qlu_studenthelper.weather.db.County;
 import com.strong.qlu_studenthelper.weather.db.Province;
@@ -97,7 +98,7 @@ public class ChooseAreaFragment extends Fragment {
                     queryCounties();
                 } else if (currentLevel == LEVEL_COUNTY) {
                     String weatherId = countyList.get(i).getWeatherId();
-                    if (getActivity() instanceof WeatherActivity) {
+                    if (getActivity() instanceof HomeActivity) {
                         Intent intent = new Intent(getActivity(), WeatherActivity.class);
                         intent.putExtra("weather_id", weatherId);
                         Log.d("TAG", "start WeatherFragment: ");

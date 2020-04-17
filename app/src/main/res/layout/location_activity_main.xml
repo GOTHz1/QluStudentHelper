@@ -12,7 +12,6 @@
         android:clickable="true">
 
     </com.baidu.mapapi.map.MapView>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,6 +23,7 @@
             android:paddingRight="8dp"
             android:layout_weight="2"
             android:orientation="horizontal"
+            android:visibility="invisible"
             android:layout_gravity="center">
 
             <AutoCompleteTextView

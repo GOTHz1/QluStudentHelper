@@ -58,14 +58,15 @@ public class NewsFragment extends Fragment {
         swipeRefreshLayout = view.findViewById(R.id.swiperefresh);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        if (newsList.size() == 14) {
-            isRefresh(swipeRefreshLayout);
-        }
+//        if (newsList.size() == 14) {
+//            isRefresh(swipeRefreshLayout);
+//        }
         getFreshNews();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 getFragmentManager().beginTransaction().replace(R.id.context_Fragment, new NewsFragment()).commit();
+                isRefresh(swipeRefreshLayout);
                 Log.d("TAG", "数据大小" + String.valueOf(newsList.size()));
                 Log.d("TAG", "数据大小" + String.valueOf(mifNewsList().size()));
 
@@ -85,7 +86,7 @@ public class NewsFragment extends Fragment {
             getnesList = newsList.subList(0, 14);
         } else {
             News news2 = new News();
-            news2.setTitle("注：第一次操作需要你手动刷新，以后打开此界面将自动刷新。省流量请不要进行操作。\n下滑刷新！！！");
+            news2.setTitle("注：第一次操作需要你手动刷新。\n下滑刷新！！！");
             getnesList.add(news2);
             return getnesList;
         }
@@ -94,7 +95,7 @@ public class NewsFragment extends Fragment {
 
     void isRefresh(SwipeRefreshLayout swipeRefreshLayout) {
         if (!swipeRefreshLayout.isRefreshing()) {
-            Toast.makeText(getContext(), "刷新成功", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "刷新成功", Toast.LENGTH_SHORT).show();
         }
     }
 

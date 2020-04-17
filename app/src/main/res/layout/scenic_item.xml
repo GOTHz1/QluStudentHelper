@@ -39,7 +39,7 @@
                 android:paddingRight="5dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
-                android:text="擦好几无敌牛逼大西南空间互踩无人打扰上的卡号"
+                android:text=""
                 android:textSize="20sp" />
 
         </LinearLayout>
