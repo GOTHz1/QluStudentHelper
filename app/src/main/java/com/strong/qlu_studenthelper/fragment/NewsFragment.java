@@ -101,13 +101,16 @@ public class NewsFragment extends Fragment {
 
 
     private void getFreshNews() {
+        Log.d("TAG", "getFreshNews: ");
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     Document doc = Jsoup.connect(URL).get();
-                    Elements element = doc.select("div[id=wp_news_w6]").select("li");
+                   // Elements element = doc.select("div[id=wp_news_w6]").select("li");  工大要闻页面更新
+                    Elements element = doc.select("div[class=col_news_list listcon]").select("li");
+                    Log.d("TAG", "run: "+element.toString());
                     for (int i = 0; i < element.size(); i++) {
                         String title = element.get(i).text();
                         String Uml = element.get(i).getElementsByTag("a").attr("href");

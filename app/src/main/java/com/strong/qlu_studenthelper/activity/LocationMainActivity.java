@@ -129,7 +129,7 @@ public class LocationMainActivity extends AppCompatActivity {
                         sleep(5000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                    }Log.v("myTag","tsdfsdfdsfsdv");
+                    }
                     Message message = handler.obtainMessage();
                     message.obj = 0;
                     handler.sendMessage(message);

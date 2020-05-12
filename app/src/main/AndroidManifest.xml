@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.strong.qlu_studenthelper">
-    <!-- 这个权限用于进行网络定位 -->
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 这个权限用于访问GPS定位 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
@@ -20,12 +20,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MyInfo"></activity>
+        <activity android:name=".activity.LoginActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"></activity>
+        <activity android:name=".activity.MyInfo" />
         <activity android:name=".activity.WebActivity" />
+        <activity
+            android:name=".course.AboutActivity"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
+        <activity
+            android:name=".course.AddCourseActivity"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity android:name=".activity.LocationMainActivity" />
         <activity android:name=".activity.WeatherActivity" />
         <activity android:name=".activity.BaseActivity" />
-        <activity android:name=".activity.HomeActivity" />
+        <activity android:name=".activity.HomeActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".course.CourseActivity" />
         <activity android:name=".activity.Logo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,7 +1,9 @@
 package com.strong.qlu_studenthelper.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,38 +22,61 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
 import com.strong.qlu_studenthelper.R;
+import com.strong.qlu_studenthelper.course.CourseActivity;
 import com.strong.qlu_studenthelper.fragment.NewsFragment;
 
-public class HomeActivity extends BaseActivity   {
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class HomeActivity extends BaseActivity {
 
     private FragmentManager fragmentManager;
     private DrawerLayout mDrawerLayout;
     private FrameLayout contextFrameLayout;
     private TextView contextText;
     NavigationView navView;
-
+    CircleImageView imageView;
+    TextView sname;
+    TextView sinfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        final Toolbar toolbar = findViewById(R.id.toolbar);
-        contextFrameLayout=findViewById(R.id.context_Fragment);
 
-        contextText=findViewById(R.id.context_text);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
+        contextFrameLayout = findViewById(R.id.context_Fragment);
+
+        contextText = findViewById(R.id.context_text);
         fragmentManager = getSupportFragmentManager();
         setSupportActionBar(toolbar);
+        imageView = findViewById(R.id.icon_image_user);
         mDrawerLayout = findViewById(R.id.draw_layout);
-         navView = findViewById(R.id.nav_view);
+        navView = findViewById(R.id.nav_view);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_left_bar_menu);
         }
+
+        navView.inflateHeaderView(R.layout.nav_header);
+        View headerView=navView.getHeaderView(0);
+        imageView=headerView.findViewById(R.id.icon_image_user);
+        sname=headerView.findViewById(R.id.usename);
+        sinfo=headerView.findViewById(R.id.mail);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplication(),LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case  R.id.nav_kechengbiao://课表
+
+                    case R.id.nav_kechengbiao://课表
                         replaceFragment(2);
 
                         break;
@@ -73,33 +98,34 @@ public class HomeActivity extends BaseActivity   {
                         break;
 
 
-
                 }
                 mDrawerLayout.closeDrawers();
                 return true;
 
             }
+
         });
+
+
     }
-    private void replaceFragment(int id){
-        switch (id){
+
+    private void replaceFragment(int id) {
+        switch (id) {
             case 1:
                 contextText.setVisibility(View.INVISIBLE);
-
-               replaceFragment(new NewsFragment());
-               break;
+                replaceFragment(new NewsFragment());
+                break;
             case 2: //课程表
-
                 contextFrameLayout.setVisibility(View.VISIBLE);
-                Intent intent2=new Intent(getApplication(),MyInfo.class);
+                Intent intent2 = new Intent(getApplication(), CourseActivity.class);
                 startActivity(intent2);
                 break;
             case 3:
-                Intent intent1=new Intent(getApplication(),LocationMainActivity.class);
+                Intent intent1 = new Intent(getApplication(), LocationMainActivity.class);
                 startActivity(intent1);
                 break;
             case 4:
-                Intent intent=new Intent(HomeActivity.this, WeatherActivity.class);
+                Intent intent = new Intent(HomeActivity.this, WeatherActivity.class);
                 startActivity(intent);
                 break;
 
@@ -112,16 +138,16 @@ public class HomeActivity extends BaseActivity   {
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.toolbar,menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.back:
-                Toast.makeText(HomeActivity.this,"夜间模式",Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeActivity.this, "夜间模式", Toast.LENGTH_SHORT).show();
                 break;
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
@@ -139,9 +165,22 @@ public class HomeActivity extends BaseActivity   {
                 .replace(R.id.context_Fragment, fragment);
         transaction.commit();
     }
-//    public static void startWeb(String Url) {
-//        webView.getSettings().setJavaScriptEnabled(true);
-//        webView.setWebViewClient(new WebViewClient());
-//        webView.loadUrl(Url);
-//    }
+
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+        SharedPreferences preferences = getSharedPreferences("user", MODE_PRIVATE);
+        String name = preferences.getString("name", "点击头像登录哦！");
+        Log.d("TAG", "onResume: " + name);
+        String userdwmc = preferences.getString("userdwmc", "你确定不登录一下吗？亲！");
+        sname.setText(userdwmc);
+        sinfo.setText(name);
+        if (preferences.getString("name",null)==null) {
+            imageView.setImageResource(R.drawable.ic_person_black_24dp);
+        }
+        else imageView.setImageResource(R.drawable.nav_header);
+    }
+
 }
