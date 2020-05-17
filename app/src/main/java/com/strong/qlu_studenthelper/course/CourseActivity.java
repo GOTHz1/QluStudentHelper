@@ -1,6 +1,8 @@
 package com.strong.qlu_studenthelper.course;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,12 +25,13 @@ import java.util.ArrayList;
 
 public class CourseActivity extends AppCompatActivity {
 
+    boolean flag;
     //星期几
     private RelativeLayout day;
 
     //SQLite Helper类
     private DatabaseHelper databaseHelper = new DatabaseHelper
-            (this, "database.db", null, 1);
+            (this, "database.db", null, 2);
 
     int currentCoursesNumber = 0;
     int maxCoursesNumber = 0;
@@ -134,15 +137,17 @@ public class CourseActivity extends AppCompatActivity {
             v.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    v.setVisibility(View.GONE);//先隐藏
-                    day.removeView(v);//再移除课程视图
-                    SQLiteDatabase sqLiteDatabase =  databaseHelper.getWritableDatabase();
-                    sqLiteDatabase.execSQL("delete from courses where course_name = ?", new String[] {course.getCourseName()});
-                    return true;
+                        v.setVisibility(View.GONE);//先隐藏
+                        day.removeView(v);//再移除课程视图
+                        SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
+                        sqLiteDatabase.execSQL("delete from courses where course_name = ?", new String[]{course.getCourseName()});
+                        return true;
+
                 }
             });
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -157,10 +162,6 @@ public class CourseActivity extends AppCompatActivity {
             case R.id.add_courses:
                 Intent intent = new Intent(CourseActivity.this, AddCourseActivity.class);
                 startActivityForResult(intent, 0);
-                break;
-            case R.id.menu_about:
-                Intent intent1 = new Intent(this, AboutActivity.class);
-                startActivity(intent1);
                 break;
         }
         return true;
@@ -179,5 +180,30 @@ public class CourseActivity extends AppCompatActivity {
             saveData(course);
         }
     }
+    public void tipDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(CourseActivity.this);
+        builder.setTitle("提示：");
+        builder.setMessage("是否删除？");
+        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setCancelable(true);            //点击对话框以外的区域是否让对话框消失
+
+        //设置正面按钮
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                flag = true;
+                dialog.dismiss();
+            }
+        });
+        //设置反面按钮
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                flag =false;
+                dialog.dismiss();
+            }
+        });
+    }
+
 
 }

@@ -7,9 +7,4 @@
         android:icon="@drawable/ic_playlist_add_black_24dp"
         android:title="添加/修改课程"
         app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/menu_about"
-        android:icon="@drawable/ic_priority_high_black_24dp"
-        android:title="关于"
-        app:showAsAction="ifRoom"/>
 </menu>

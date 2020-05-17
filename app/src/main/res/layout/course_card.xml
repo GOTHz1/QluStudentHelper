@@ -5,7 +5,7 @@
     android:layout_width="45dp"
     android:layout_height="70dp"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="#7feacdd1"
+    app:cardBackgroundColor="#7F9ED3BD"
     app:cardCornerRadius="7dp">
 
     <TextView

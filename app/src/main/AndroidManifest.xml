@@ -20,22 +20,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.LoginActivity"
-            android:launchMode="singleTop"
-            android:theme="@style/Theme.AppCompat.Light.Dialog"></activity>
-        <activity android:name=".activity.MyInfo" />
-        <activity android:name=".activity.WebActivity" />
+        <activity android:name=".activity.WebviewActivity"></activity>
         <activity
-            android:name=".course.AboutActivity"
+            android:name=".activity.LoginActivity"
+            android:launchMode="singleTop"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
+        <activity android:name=".activity.WebActivity" />
         <activity
             android:name=".course.AddCourseActivity"
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity android:name=".activity.LocationMainActivity" />
         <activity android:name=".activity.WeatherActivity" />
         <activity android:name=".activity.BaseActivity" />
-        <activity android:name=".activity.HomeActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".activity.HomeActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".course.CourseActivity" />
         <activity android:name=".activity.Logo">
             <intent-filter>

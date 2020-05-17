@@ -12,7 +12,7 @@
         <item
             android:id="@+id/nva_location"
             android:icon="@drawable/nav_location"
-            android:title="来校导航（校内导航）"/>
+            android:title="地图导航"/>
         <item
             android:id="@+id/nav_tianqi"
             android:icon="@drawable/nav_tianqi"
@@ -20,6 +20,6 @@
         <item
             android:id="@+id/nav_setting"
             android:icon="@drawable/nav_tast"
-            android:title="设置"/>
+            android:title="首页"/>
     </group>
 </menu>

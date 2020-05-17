@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/baseBlue"
     tools:context=".activity.LoginActivity">
     <EditText
         android:id="@+id/id"
@@ -24,11 +25,13 @@
         android:id="@+id/button_get"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/blue_a100"
         android:text="登录"/>
     <Button
         android:id="@+id/tuichu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/red_50"
         android:text="我要退出！"/>
 
 </LinearLayout>

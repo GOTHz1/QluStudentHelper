@@ -24,6 +24,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.strong.qlu_studenthelper.R;
 import com.strong.qlu_studenthelper.course.CourseActivity;
 import com.strong.qlu_studenthelper.fragment.NewsFragment;
+import com.strong.qlu_studenthelper.fragment.ViewFragment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -32,7 +33,6 @@ public class HomeActivity extends BaseActivity {
     private FragmentManager fragmentManager;
     private DrawerLayout mDrawerLayout;
     private FrameLayout contextFrameLayout;
-    private TextView contextText;
     NavigationView navView;
     CircleImageView imageView;
     TextView sname;
@@ -45,7 +45,6 @@ public class HomeActivity extends BaseActivity {
         final Toolbar toolbar = findViewById(R.id.toolbar);
         contextFrameLayout = findViewById(R.id.context_Fragment);
 
-        contextText = findViewById(R.id.context_text);
         fragmentManager = getSupportFragmentManager();
         setSupportActionBar(toolbar);
         imageView = findViewById(R.id.icon_image_user);
@@ -56,7 +55,7 @@ public class HomeActivity extends BaseActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_left_bar_menu);
         }
-
+        replaceFragment(new ViewFragment());
         navView.inflateHeaderView(R.layout.nav_header);
         View headerView=navView.getHeaderView(0);
         imageView=headerView.findViewById(R.id.icon_image_user);
@@ -89,6 +88,7 @@ public class HomeActivity extends BaseActivity {
 
                         break;
                     case R.id.nav_setting://设置
+                        toolbar.setTitle("首页");
                         replaceFragment(5);
 
                         break;
@@ -112,7 +112,6 @@ public class HomeActivity extends BaseActivity {
     private void replaceFragment(int id) {
         switch (id) {
             case 1:
-                contextText.setVisibility(View.INVISIBLE);
                 replaceFragment(new NewsFragment());
                 break;
             case 2: //课程表
@@ -130,6 +129,7 @@ public class HomeActivity extends BaseActivity {
                 break;
 
             case 5:
+                replaceFragment(new ViewFragment());
                 break;
 
         }
