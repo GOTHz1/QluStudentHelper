@@ -45,7 +45,6 @@ public class AddCourseActivity extends AppCompatActivity {
                             Integer.valueOf(day), Integer.valueOf(start), Integer.valueOf(end));
                     Intent intent = new Intent(AddCourseActivity.this, CourseActivity.class);
                     intent.putExtra("course", course);
-
                     setResult(Activity.RESULT_OK, intent);
                     finish();
                 }

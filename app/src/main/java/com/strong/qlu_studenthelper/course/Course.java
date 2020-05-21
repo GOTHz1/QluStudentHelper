@@ -21,6 +21,10 @@ public class Course implements Serializable {
         this.classEnd = classEnd;
     }
 
+    public Course() {
+
+    }
+
     public String getCourseName() {
         return courseName;
     }
@@ -58,7 +62,7 @@ public class Course implements Serializable {
     }
 
     public void setStart(int classStart) {
-        this.classEnd = classStart;
+        this.classStart = classStart;
     }
 
     public int getEnd() {

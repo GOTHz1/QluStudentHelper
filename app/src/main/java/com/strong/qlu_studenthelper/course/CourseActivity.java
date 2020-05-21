@@ -1,12 +1,11 @@
 package com.strong.qlu_studenthelper.course;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -87,6 +86,7 @@ public class CourseActivity extends AppCompatActivity {
                 );
     }
 
+
     //创建"第几节数"视图
     private void createLeftView(Course course) {
         int endNumber = course.getEnd();
@@ -131,12 +131,16 @@ public class CourseActivity extends AppCompatActivity {
                     (ViewGroup.LayoutParams.MATCH_PARENT,(course.getEnd()-course.getStart()+1)*height - 8); //设置布局高度,即跨多少节课
             v.setLayoutParams(params);
             TextView text = v.findViewById(R.id.text_view);
-            text.setText(course.getCourseName() + "\n" + course.getTeacher() + "\n" + course.getClassRoom()); //显示课程名
-            day.addView(v);
+            text.setTextSize(10.2f);
+                text.setText(course.getCourseName() + "\n" + course.getTeacher() + "\n" + course.getClassRoom()); //显示课程名
+                day.addView(v);
+
+
             //长按删除课程
             v.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
+                        v.setVisibility(View.GONE);
                         v.setVisibility(View.GONE);//先隐藏
                         day.removeView(v);//再移除课程视图
                         SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
@@ -163,6 +167,11 @@ public class CourseActivity extends AppCompatActivity {
                 Intent intent = new Intent(CourseActivity.this, AddCourseActivity.class);
                 startActivityForResult(intent, 0);
                 break;
+            case R.id.load_course:
+                Intent intent1 = new Intent(CourseActivity.this, LoadCourseActivity.class);
+                this.finish();
+                startActivityForResult(intent1, 1);
+                break;
         }
         return true;
     }
@@ -170,7 +179,9 @@ public class CourseActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d("TAG", "onActivityResult: getCourseList1");
         if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
+            Log.d("TAG", "onActivityResult: getCourseList2");
             Course course = (Course) data.getSerializableExtra("course");
             //创建课程表左边视图(节数)
             createLeftView(course);
@@ -179,30 +190,6 @@ public class CourseActivity extends AppCompatActivity {
             //存储数据到数据库
             saveData(course);
         }
-    }
-    public void tipDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(CourseActivity.this);
-        builder.setTitle("提示：");
-        builder.setMessage("是否删除？");
-        builder.setIcon(R.mipmap.ic_launcher);
-        builder.setCancelable(true);            //点击对话框以外的区域是否让对话框消失
-
-        //设置正面按钮
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                flag = true;
-                dialog.dismiss();
-            }
-        });
-        //设置反面按钮
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                flag =false;
-                dialog.dismiss();
-            }
-        });
     }
 
 

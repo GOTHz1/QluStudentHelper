@@ -41,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor=preferences.edit();
                     editor.putString("name",student.getName());
                     editor.putString("userdwmc",student.getUserdwmc());
+                    editor.putString("id",student.getXh());
+                    editor.putString("password",student.getPwd());
                     editor.commit();
                     break;
             }
@@ -69,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor=preferences.edit();
                 editor.putString("name",null);
                 editor.putString("userdwmc",null);
+                editor.putString("id",null);
+                editor.putString("password",null);
                 editor.commit();
                 Intent intent=new Intent(getApplication(),Logo.class);
                 startActivity(intent);
@@ -107,6 +111,9 @@ public class LoginActivity extends AppCompatActivity {
 
                 student.setName(name);
                 student.setUserdwmc(userdwmc);
+                student.setXh((String.valueOf(inputId.getText())));
+                student.setPwd((String.valueOf(inputPassword.getText())));
+
             }
             else {
                 Toast.makeText(getApplication(),"验证不通过",Toast.LENGTH_SHORT).show();

@@ -7,4 +7,9 @@
         android:icon="@drawable/ic_playlist_add_black_24dp"
         android:title="添加/修改课程"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/load_course"
+        android:icon="@drawable/ic_file_download_black_24dp"
+        android:title="导入课程"
+        app:showAsAction="ifRoom"/>
 </menu>
