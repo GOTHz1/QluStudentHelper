@@ -10,10 +10,11 @@
         android:id="@+id/warn_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="学年为起始年，如（2018-2019学年第一学期，选择格式为“2018年1学期”）" />
+        android:text="学年为起始年，如:2018-2019学年第一学期，选择格式为“2018年1学期”" />
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
     <NumberPicker
         android:id="@+id/year"
         android:layout_width="wrap_content"
@@ -46,10 +47,13 @@
 
 
     </LinearLayout>
+
     <Button
         android:id="@+id/button_load"
+        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="导入" />
 
 </LinearLayout>

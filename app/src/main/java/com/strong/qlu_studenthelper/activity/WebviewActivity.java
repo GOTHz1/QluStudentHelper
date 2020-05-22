@@ -26,4 +26,26 @@ WebView webView;
         webSettings.setBlockNetworkImage(false);
         webView.loadUrl(URL);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        webView.onPause();
+        webView.pauseTimers();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        webView.resumeTimers();
+        webView.onResume();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        webView.destroy();
+        webView = null;
+        super.onDestroy();
+    }
 }

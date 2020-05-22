@@ -46,7 +46,7 @@ public class LocationSetter extends Handler {
                 .longitude(location.getLongitude()).build();
         // 设置定位数据
         mBaiduMap.setMyLocationData(locData);BitmapFactory.Options options = new BitmapFactory.Options();
-        Bitmap bitmap = BitmapFactory.decodeResource(LocationMainActivity.locationMainActivity.getResources(), R.drawable.direck1);
+        Bitmap bitmap = BitmapFactory.decodeResource(LocationMainActivity.locationMainActivity.getResources(), R.drawable.daohuangr1);
         // 设置自定义图标
         BitmapDescriptor mCurrentMarker = BitmapDescriptorFactory
                 .fromBitmap(ImageProcessing.ChangBitmapSize(bitmap));

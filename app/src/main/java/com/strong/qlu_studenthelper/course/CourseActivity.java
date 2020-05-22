@@ -42,7 +42,6 @@ public class CourseActivity extends AppCompatActivity {
         //工具条
        Toolbar toolbarCourse = findViewById(R.id.toolbar_course);
         setSupportActionBar(toolbarCourse);
-
         //从数据库读取数据
         loadData();
     }

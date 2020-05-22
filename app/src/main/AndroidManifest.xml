@@ -22,7 +22,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".course.LoadCourseActivity"
             android:launchMode="singleTask"></activity>
-        <activity android:name=".activity.WebviewActivity" />
+        <activity android:name=".activity.WebviewActivity"
+            android:launchMode="standard"/>
         <activity
             android:name=".activity.LoginActivity"
             android:launchMode="singleTop"

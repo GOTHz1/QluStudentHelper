@@ -86,7 +86,7 @@ public class NewsFragment extends Fragment {
             getnesList = newsList.subList(0, 14);
         } else {
             News news2 = new News();
-            news2.setTitle("注：第一次操作需要你手动刷新。\n下滑刷新！！！");
+            news2.setTitle("注：下滑刷新新闻数据！");
             getnesList.add(news2);
             return getnesList;
         }

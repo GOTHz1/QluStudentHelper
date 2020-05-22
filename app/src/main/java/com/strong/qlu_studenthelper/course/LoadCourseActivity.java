@@ -1,5 +1,6 @@
 package com.strong.qlu_studenthelper.course;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +14,7 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
@@ -37,20 +39,23 @@ public class LoadCourseActivity extends AppCompatActivity {
     String id;
     String password;
     String taken;
-    String zc;
-    String xnxqh;
     String mtaken;
+    String Vyear;
+    String Vxueqi;
+    String Vzhou;
     NumberPicker year;
     String year2;
     NumberPicker zhou;
     NumberPicker xueqi;
     List<MyCourse> myCourseList = new ArrayList<>();
     List<Course> courseList = new ArrayList<>();
+    //    SimpleDateFormat sDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+//    String  date=sDateFormat.format(new java.util.Date());
     private DatabaseHelper databaseHelper = new DatabaseHelper
             (this, "database.db", null, 2);
-    Handler handler=new Handler(){
-        public void handleMessage(Message message){
-            switch (message.what){
+    Handler handler = new Handler() {
+        public void handleMessage(Message message) {
+            switch (message.what) {
                 case 1:
                     dealMyCourse(getMyCourse);
                     break;
@@ -66,26 +71,37 @@ public class LoadCourseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_course);
         button = findViewById(R.id.button_load);
-        textView=findViewById(R.id.warn_text);
-        year=findViewById(R.id.year);
-        xueqi=findViewById(R.id.xueqi);
-        zhou=findViewById(R.id.zhou);
+        textView = findViewById(R.id.warn_text);
+        year = findViewById(R.id.year);
+        xueqi = findViewById(R.id.xueqi);
+        zhou = findViewById(R.id.zhou);
+
+
+        SharedPreferences preferencesUser = getSharedPreferences("user", MODE_PRIVATE);
+        id = preferencesUser.getString("id", "");
+        password = preferencesUser.getString("password", "");
+
+        SharedPreferences preferencesDate = getSharedPreferences("date", MODE_PRIVATE);
+        Vyear = preferencesDate.getString("year", "2020");
+        Vxueqi = preferencesDate.getString("xueqi", "1");
+        Vzhou = preferencesDate.getString("zhou", "1");
+
         year.setMaxValue(2025);
         year.setMinValue(2016);
-        year.setValue(2020);
+        year.setValue(Integer.parseInt(Vyear));//无法将值设置在最大最小值之前
 
-        xueqi.setValue(1);
+
         xueqi.setMinValue(1);
         xueqi.setMaxValue(2);
+        xueqi.setValue(Integer.parseInt(Vxueqi));
 
-        zhou.setValue(1);
+
         zhou.setMinValue(1);
         zhou.setMaxValue(20);
+        zhou.setValue(Integer.parseInt(Vzhou));
 
-        SharedPreferences preferences = getSharedPreferences("user", MODE_PRIVATE);
-        id = preferences.getString("id", "");
-        password = preferences.getString("password", "");
-        if(id==""||password==""){
+
+        if (id == "" || password == "") {
             textView.setText("你还没有登录,请返回主界面登录");
             textView.setTextColor(this.getResources().getColor(R.color.red_700));
             button.setText("不可使用");
@@ -111,28 +127,50 @@ public class LoadCourseActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadCourse(mtaken);
+                shoWorn();
             }
         });
+//        buttonGetZhou.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d("TAG", "onCreate: date"+date);
+//                loadmess(mtaken);
+//            }
+//        });
 
 
     }
+    void shoWorn(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("提醒！");
+        builder.setMessage("导入课表将会将原课表清空，即使是你手动添加的课程");
+        builder.setPositiveButton("我不在乎", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                saveDate();
+                loadCourse(mtaken);
+            }
+        });
+        builder.setNegativeButton("稍等一下",null);
+        builder.show();
+
+    }
+
     private void loadCourse(final String mtaken) {
-        year2= String.valueOf(year.getValue()+1);
+        year2 = String.valueOf(year.getValue() + 1);
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     Request request = new Request.Builder()
-                            .url("http://jwxt.qlu.edu.cn/app.do?method=getKbcxAzc&xh=" + id + "&xnxqid="+year.getValue()+"-"+year2+"-"+xueqi.getValue()+"&zc="+zhou.getValue())
+                            .url("http://jwxt.qlu.edu.cn/app.do?method=getKbcxAzc&xh=" + id + "&xnxqid=" + year.getValue() + "-" + year2 + "-" + xueqi.getValue() + "&zc=" + zhou.getValue())
                             .header("token", mtaken)
                             .build();
                     Response response = client.newCall(request).execute();
-                    Log.d("TAG", "run: "+"http://jwxt.qlu.edu.cn/app.do?method=getKbcxAzc&xh=" + id + "&xnxqid="+year.getValue()+"-"+year2+"-"+xueqi.getValue()+"&zc="+zhou.getValue());
                     getMyCourse = response.body().string();
-                    Message message=new Message();
-                    message.what=1;
+                    Message message = new Message();
+                    message.what = 1;
                     handler.sendMessage(message);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -143,41 +181,42 @@ public class LoadCourseActivity extends AppCompatActivity {
 
     }
 
-    private void loadmess(final String mtaken) {
-        //加载当前周次，弃用
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    OkHttpClient client = new OkHttpClient();
-
-                    Request request1=new Request.Builder()
-                            .url("http://jwxt.xxxx.edu.cn/app.do?method=getCurrentTime&currDate=2019-01-14")
-                            .header("token", mtaken)
-                            .build();
-
-                    Response response1=client.newCall(request1).execute();
-
-
-                    String message=response1.body().string();
-                    JSONObject jsonObject = new JSONObject(message);
-                    zc = jsonObject.getString("zc");
-                    xnxqh=jsonObject.getString("xnxqh");
-                    Log.d("TAG", "run:11 " + zc+xnxqh);
-                } catch (IOException | JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }).start();
-
-    }
+//    private void loadmess(final String mtaken) {
+//        //加载当前周次,学校教务没设置起始周故弃用
+//        Log.d("TAG", "loadmess: "+mtaken);
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    OkHttpClient client = new OkHttpClient();
+//                    Request request1=new Request.Builder()
+//                            .url("http://jwxt.qlu.edu.cn/app.do?method=getCurrentTime&currDate="+date)
+//                            .header("token", mtaken)
+//                            .build();
+//
+//                    Log.d("TAG", "loadmess: "+request1.toString());
+//                    Response response1=client.newCall(request1).execute();
+//                    String message=response1.body().string();
+//                    Log.d("TAG", "loadmess: "+message);
+//                    JSONObject jsonObject = new JSONObject(message);
+//                    Log.d("TAG", "run: respoonse"+response1.message()+response1.toString());
+//                    zc = jsonObject.getString("zc");
+//                    xnxqh=jsonObject.getString("xnxqh");
+//                    Log.d("TAG", "run:11 " + zc+xnxqh);
+//                } catch (IOException | JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//        }).start();
+//
+//    }
 
     private void dealMyCourse(String getMyCourse) {
         Gson gson = new Gson();
         Log.d("TAG", "dealMyCourse: " + getMyCourse);
-        if (getMyCourse.length()<10) {
-            Toast.makeText(LoadCourseActivity.this,"此时间没有课程信息",Toast.LENGTH_SHORT).show();
+        if (getMyCourse.length() < 10) {
+            Toast.makeText(LoadCourseActivity.this, "此时间没有课程信息", Toast.LENGTH_SHORT).show();
 
         } else {
             List<MyCourse> myCourseList = gson.fromJson(getMyCourse, new TypeToken<List<MyCourse>>() {
@@ -225,5 +264,15 @@ public class LoadCourseActivity extends AppCompatActivity {
         Intent intent = new Intent(LoadCourseActivity.this, CourseActivity.class);
         this.finish();
         startActivity(intent);
+    }
+
+    private void saveDate() {
+        SharedPreferences preferences = getSharedPreferences("date", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("year", String.valueOf(year.getValue()));
+        editor.putString("xueqi", String.valueOf(xueqi.getValue()));
+        editor.putString("zhou", String.valueOf(zhou.getValue()));
+
+        editor.commit();
     }
 }
