@@ -59,45 +59,46 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="left"
-                android:orientation="horizontal"
+                android:layout_marginTop="15dp"
                 android:layout_weight="1"
-                android:layout_marginTop="15dp">
+                android:gravity="left"
+                android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    fab:cardCornerRadius="20dp"
-                    android:layout_marginLeft="5dp"
                     android:id="@+id/cardTop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:visibility="invisible"
                     fab:cardBackgroundColor="@color/baseBlue"
-                    android:visibility="invisible">
+                    fab:cardCornerRadius="20dp">
+
                     <TextView
+                        android:id="@+id/textTop"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="退出介绍"
                         android:padding="10dp"
-                        android:textColor="@color/white"
-                        android:id="@+id/textTop"/>
+                        android:text="退出介绍"
+                        android:textColor="@color/white" />
                 </androidx.cardview.widget.CardView>
 
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/navigation_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    fab:cardCornerRadius="20dp"
                     android:layout_marginLeft="5dp"
-                    android:id="@+id/navigation_button"
+                    android:visibility="invisible"
                     fab:cardBackgroundColor="@color/black"
-                    android:visibility="invisible">
+                    fab:cardCornerRadius="20dp">
+
                     <TextView
+                        android:id="@+id/navigation_textTop"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:textColor="@color/white"
-                        android:id="@+id/navigation_textTop"/>
+                        android:textColor="@color/white" />
                 </androidx.cardview.widget.CardView>
-
 
 
             </RelativeLayout>
@@ -106,20 +107,25 @@
                 android:id="@+id/multiple_actions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="100dp"
+                android:baselineAligned="false"
                 fab:fab_addButtonColorNormal="@color/baseBlue"
                 fab:fab_addButtonColorPressed="@color/baseBlue"
-                fab:fab_expandDirection="down"
+                fab:fab_expandDirection="up"
                 fab:fab_labelStyle="@style/floatingActionsMenu_fab_style">
-
                 <com.getbase.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/action_a"
+                    android:id="@+id/action_c"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    fab:fab_colorNormal="@color/baseBlue"
-                    fab:fab_colorPressed="@color/baseBlue"
-                    fab:fab_icon="@drawable/daohang03_dangqian"
-                    fab:fab_size="mini"
-                    fab:fab_title="我的位置" />
+
+                    fab:fab_colorNormal="@color/blue_100"
+                    fab:fab_colorPressed="@color/blue_200"
+                   fab:fab_icon="@drawable/daohang01_daohang"
+                    fab:fab_size="normal"
+                    fab:fab_title="导航" />
+
 
                 <com.getbase.floatingactionbutton.FloatingActionButton
                     android:id="@+id/action_b"
@@ -128,18 +134,19 @@
                     fab:fab_colorNormal="@color/blue_900"
                     fab:fab_colorPressed="@color/baseBlue"
                     fab:fab_icon="@drawable/daohang02_jingdian"
-                    fab:fab_size="mini"
+                    fab:fab_size="normal"
                     fab:fab_title="地点介绍" />
-
                 <com.getbase.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/action_c"
+                    android:id="@+id/action_a"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    fab:fab_colorNormal="@color/blue_100"
-                    fab:fab_colorPressed="@color/blue_200"
-                    fab:fab_icon="@drawable/daohang01_daohang"
-                    fab:fab_size="mini"
-                    fab:fab_title="导航" />
+                    fab:fab_colorNormal="@color/baseBlue"
+                    fab:fab_colorPressed="@color/baseBlue"
+                    fab:fab_icon="@drawable/daohang03_dangqian"
+                    fab:fab_size="normal"
+                    fab:fab_title="我的位置" />
+
+
 
             </com.getbase.floatingactionbutton.FloatingActionsMenu>
 

@@ -6,6 +6,16 @@ package com.strong.qlu_studenthelper.bean;
 public class News {
     String title;//标题
     String webUrl;//链接
+    String dade;
+    public String getDade() {
+        return dade;
+    }
+
+    public void setDade(String dade) {
+        this.dade = dade;
+    }
+
+
 
     public String getTitle() {
         return title;

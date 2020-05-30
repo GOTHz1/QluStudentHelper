@@ -56,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         inputPassword=findViewById(R.id.password);
         LoginButton=findViewById(R.id.button_get);
         tuichuButton=findViewById(R.id.tuichu);
+
         LoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

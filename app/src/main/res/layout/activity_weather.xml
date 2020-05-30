@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-    android:background="@color/colorPrimary">
+    android:background="@color/brown_50">
 
-    <ImageView
-        android:id="@+id/bing_pic_img"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop" />
+<!--    <ImageView-->
+<!--        android:id="@+id/bing_pic_img"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="#00FFFFFF"-->
+<!--        android:scaleType="centerCrop" />-->
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer_layout"
@@ -35,9 +36,10 @@
                     android:fitsSystemWindows="true"
                     android:orientation="vertical">
 
-                    <include layout="@layout/title" />
+<!--                    <include layout="@layout/title" />-->
 
                     <include layout="@layout/now" />
+
                     <include layout="@layout/wind"/>
 
                     <include layout="@layout/forecast" />

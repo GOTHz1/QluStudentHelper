@@ -7,10 +7,13 @@ import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -18,6 +21,8 @@ import com.strong.qlu_studenthelper.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.view.KeyEvent.KEYCODE_BACK;
 
 public class WebActivity extends BaseActivity {
 
@@ -32,7 +37,7 @@ public class WebActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
-        setTitle("新闻详情");
+
 
         findViewById(R.id.image_sure_tv).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +51,12 @@ public class WebActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 onBackPressed();
+            }
+        });
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                setTitle(title);
             }
         });
         Log.d("TAG1","地址为："+newsLink);
@@ -103,7 +114,13 @@ public class WebActivity extends BaseActivity {
         webSettings.setLoadsImagesAutomatically(true);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setBlockNetworkImage(false);
-        Log.d("TAG", newsLink);
+        webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
         webView.loadUrl(newsLink);
     }
 
@@ -117,5 +134,17 @@ public class WebActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KEYCODE_BACK) && webView.canGoBack()) {
 
+webView.goBack();
+
+return true;
+
+}
+
+return super.onKeyDown(keyCode, event);
+
+    }
 }

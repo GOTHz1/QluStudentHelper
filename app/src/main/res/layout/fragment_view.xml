@@ -1,88 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-        android:id="@+id/context_Fragment"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-<LinearLayout
     android:orientation="vertical"
-    android:layout_weight="1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-        <ImageButton
-            android:id="@+id/shipaiButton"
-            android:layout_width="80dp"
-            android:layout_height="50dp"
-            android:background="#0000"
-            android:src="@drawable/ic_map_black_24dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="全景工大 "
-            android:textSize="20dp"/>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="NamespaceTypo">
+
+
+    <FrameLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/view_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="50dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/info" />
+            </LinearLayout>
+        </ScrollView>
 </LinearLayout>
-        <LinearLayout
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageButton
-                android:id="@+id/jiaofeiButton"
-                android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:background="#0000"
-                android:src="@drawable/ic_attach_money_black_24dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="工大财务 "
-                android:textSize="20dp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageButton
-                android:id="@+id/tiyuButton"
-                android:layout_width="80dp"
-                android:layout_height="50dp"
-                android:background="#0000"
-                android:src="@drawable/ic_directions_run_black_24dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="体育成绩 "
-                android:textSize="20dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageButton
-                android:id="@+id/kebiaoButton"
-                android:layout_width="80dp"
-                android:background="#0000"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_school_black_24dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="教务系统"
-                android:textSize="20dp"/>
-        </LinearLayout>
+    </FrameLayout>
 
 
 
 
-    </LinearLayout>
 
-</FrameLayout>
+
+</LinearLayout>

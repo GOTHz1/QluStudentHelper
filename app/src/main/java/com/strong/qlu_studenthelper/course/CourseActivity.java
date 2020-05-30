@@ -23,6 +23,10 @@ import com.strong.qlu_studenthelper.R;
 import java.util.ArrayList;
 
 public class CourseActivity extends AppCompatActivity {
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     boolean flag;
     //星期几

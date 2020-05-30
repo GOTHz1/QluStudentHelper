@@ -1,6 +1,7 @@
 package com.strong.qlu_studenthelper.activity;
 
 import android.os.Bundle;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -9,14 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.strong.qlu_studenthelper.R;
 
 public class WebviewActivity extends AppCompatActivity {
-WebView webView;
+    WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
-        webView =  findViewById(R.id.webView2);
-        String URL=getIntent().getStringExtra("URL");
+        webView = findViewById(R.id.webView2);
+        String URL = getIntent().getStringExtra("URL");
         WebSettings webSettings = webView.getSettings();
         webSettings.setSupportZoom(true);
         webSettings.setUseWideViewPort(true);
@@ -24,6 +25,19 @@ WebView webView;
         webSettings.setLoadsImagesAutomatically(true);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setBlockNetworkImage(false);
+//        webView.setWebViewClient(new WebViewClient() {
+//            @Override
+//            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//                view.loadUrl(url);
+//                return true;
+//            }
+//        });
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onReceivedTitle(WebView view, String title) {
+                setTitle(title);
+            }
+        });
         webView.loadUrl(URL);
     }
 

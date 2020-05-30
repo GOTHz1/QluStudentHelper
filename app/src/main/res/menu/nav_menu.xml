@@ -2,24 +2,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/homepng"
+            android:title="首页"/>
+        <item
             android:id="@+id/nav_info"
-            android:icon="@drawable/nav_tongzhi"
-            android:title="学校通知"/>
+            android:icon="@drawable/newspng"
+            android:title="工大新闻"/>
         <item
             android:id="@+id/nav_kechengbiao"
-            android:icon="@drawable/nav_friends"
+            android:icon="@drawable/coursepng"
             android:title="课程表"/>
-        <item
-            android:id="@+id/nva_location"
-            android:icon="@drawable/nav_location"
-            android:title="地图导航"/>
+        <item android:id="@+id/nav_score"
+            android:icon="@drawable/score"
+            android:title="成绩查询"/>
         <item
             android:id="@+id/nav_tianqi"
-            android:icon="@drawable/nav_tianqi"
-            android:title="天气预报"/>
+            android:icon="@drawable/weatherpng"
+            android:title="学校天气"/>
         <item
-            android:id="@+id/nav_setting"
-            android:icon="@drawable/nav_tast"
-            android:title="首页"/>
+            android:id="@+id/nva_location"
+            android:icon="@drawable/mappng"
+            android:title="校内导航"/>
+
+
     </group>
 </menu>

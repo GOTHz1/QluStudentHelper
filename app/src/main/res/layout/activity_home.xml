@@ -18,10 +18,66 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/Theme.AppCompat.Light" />
         <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <FrameLayout
             android:id="@+id/context_Fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
+        </FrameLayout>
+            <com.getbase.floatingactionbutton.FloatingActionsMenu
+                android:id="@+id/action_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="60dp"
+                app:fab_addButtonColorNormal="@color/baseBlue"
+                app:fab_addButtonColorPressed="@color/baseBlue"
+                app:fab_expandDirection="up"
+                app:fab_labelStyle="@style/floatingActionsMenu_fab_style">
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/action_book_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="@color/purple"
+                    app:fab_colorPressed="@color/baseBlue"
+                    app:fab_icon="@drawable/book_search"
+                    app:fab_size="normal"
+                    app:fab_title="馆藏查询" />
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/quanjing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="@color/blue_a400"
+                    app:fab_colorPressed="@color/baseBlue"
+                    app:fab_icon="@drawable/quanjing"
+                    app:fab_size="normal"
+                    app:fab_title="全景工大" />
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/sport"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="@color/black"
+                    app:fab_colorPressed="@color/blue_200"
+                    app:fab_icon="@drawable/sportpng"
+                    app:fab_size="normal"
+                    app:fab_title="体育成绩" />
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/jiaowu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:fab_colorNormal="@color/blue_100"
+                    app:fab_colorPressed="@color/blue_200"
+                    app:fab_icon="@drawable/jiaowupng"
+                    app:fab_size="normal"
+                    app:fab_title="教务系统" />
+
+            </com.getbase.floatingactionbutton.FloatingActionsMenu>
         </FrameLayout>
 
     </LinearLayout>

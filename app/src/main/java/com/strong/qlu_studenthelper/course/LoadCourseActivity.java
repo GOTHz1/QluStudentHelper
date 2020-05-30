@@ -1,9 +1,11 @@
 package com.strong.qlu_studenthelper.course;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -54,9 +56,11 @@ public class LoadCourseActivity extends AppCompatActivity {
     private DatabaseHelper databaseHelper = new DatabaseHelper
             (this, "database.db", null, 2);
     Handler handler = new Handler() {
+        @SuppressLint("ResourceAsColor")
         public void handleMessage(Message message) {
             switch (message.what) {
                 case 1:
+
                     dealMyCourse(getMyCourse);
                     break;
                 default:
@@ -66,6 +70,7 @@ public class LoadCourseActivity extends AppCompatActivity {
 
     };
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,13 +105,11 @@ public class LoadCourseActivity extends AppCompatActivity {
         zhou.setMaxValue(20);
         zhou.setValue(Integer.parseInt(Vzhou));
 
+        textView.setText("尝试连接网络，重新打开此界面试试");
+        textView.setTextColor(R.color.red_a700);
+        button.setText("不可使用");
+        button.setEnabled(false);
 
-        if (id == "" || password == "") {
-            textView.setText("你还没有登录,请返回主界面登录");
-            textView.setTextColor(this.getResources().getColor(R.color.red_700));
-            button.setText("不可使用");
-            button.setEnabled(false);
-        }
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -119,6 +122,23 @@ public class LoadCourseActivity extends AppCompatActivity {
                     taken = response.body().string();
                     JSONObject jsonObject = new JSONObject(taken);
                     mtaken = jsonObject.getString("token");
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (id == "" || password == "") {
+                                textView.setText("你还没有登录,请返回主界面登录");
+                                textView.setTextColor(R.color.red_a700);
+                                button.setText("不可使用");
+                                button.setEnabled(false);
+                            }else if(mtaken.length()>5){
+                                textView.setText("学年为起始年，如:2018-2019学年第一学期，选择格式为“2018年1学期");
+                                textView.setTextColor(R.color.red_a700);
+                                button.setText("导入");
+                                button.setEnabled(true);
+                            }
+                        }
+                    });
+
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
@@ -141,18 +161,26 @@ public class LoadCourseActivity extends AppCompatActivity {
 
     }
     void shoWorn(){
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setTitle("提醒！");
-        builder.setMessage("导入课表将会将原课表清空，即使是你手动添加的课程");
-        builder.setPositiveButton("我不在乎", new DialogInterface.OnClickListener() {
+        final AlertDialog alertDialog=new AlertDialog.Builder(this)
+        .setTitle("提醒")
+        .setMessage("导入课表将会将原课表清空，即使是你已经手动添加的课程！")
+                .setPositiveButton("我不在乎！", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        saveDate();
+                        loadCourse(mtaken);
+                    }
+                })
+                .setNegativeButton("容我想想",null).create();
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                saveDate();
-                loadCourse(mtaken);
+            public void onShow(DialogInterface dialog) {
+                Button button=alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                button.setTextColor(Color.RED);
+
             }
         });
-        builder.setNegativeButton("稍等一下",null);
-        builder.show();
+        alertDialog.show();
 
     }
 
@@ -230,7 +258,7 @@ public class LoadCourseActivity extends AppCompatActivity {
                 course.setDay(Integer.parseInt(myCourse.getKcsj().substring(0, 1)));
                 course.setStart(Integer.parseInt(myCourse.getKcsj().substring(2, 3)));
                 course.setEnd(Integer.parseInt(myCourse.getKcsj().substring(4)));
-                Log.d("TAG", "dealMyCourse: +数据" + course.getCourseName() + course.getDay() + course.getStart() + course.getEnd());
+                Log.d("TAG", "dealMyCo urse: +数据" + course.getCourseName() + course.getDay() + course.getStart() + course.getEnd());
                 if (course.getEnd() < 13) {
                     courseList.add(course);
                 }

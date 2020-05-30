@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
@@ -42,8 +41,6 @@ import com.baidu.mapapi.model.LatLng;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.strong.qlu_studenthelper.R;
-import com.strong.qlu_studenthelper.location.animation.TopAniHandlerHide;
-import com.strong.qlu_studenthelper.location.animation.TopAniHandlerShow;
 import com.strong.qlu_studenthelper.location.attractions.Attractions_ifo;
 import com.strong.qlu_studenthelper.location.attractions.Scenic;
 import com.strong.qlu_studenthelper.location.choose.ChoosePlace;
@@ -61,6 +58,9 @@ import com.strong.qlu_studenthelper.location.schoolgate.MyGraph;
 import com.strong.qlu_studenthelper.location.schoolgate.Point;
 
 import java.util.Arrays;
+
+//import com.strong.qlu_studenthelper.location.animation.TopAniHandlerHide;
+//import com.strong.qlu_studenthelper.location.animation.TopAniHandlerShow;
 
 
 public class LocationMainActivity extends AppCompatActivity {
@@ -191,7 +191,7 @@ public class LocationMainActivity extends AppCompatActivity {
                     cardView.setClickable(false);
                     flag2 = false;
                     mBaiduMap.clear();
-                    new TopAniHandlerHide(cardView).sendMessage();
+                  //  new TopAniHandlerHide(cardView).sendMessage();
                 }
             }
         });
@@ -209,7 +209,7 @@ public class LocationMainActivity extends AppCompatActivity {
                 flag2=true;
                 CardView cardView=findViewById(R.id.cardTop);
                 cardView.setClickable(true);
-                new TopAniHandlerShow(cardView).sendMessage();
+  //              new TopAniHandlerShow(cardView).sendMessage();
             }
         });
 
@@ -224,7 +224,7 @@ public class LocationMainActivity extends AppCompatActivity {
                     cardView.setClickable(false);
                     flag2 = false;
                     mBaiduMap.clear();
-                    new TopAniHandlerHide(cardView).sendMessage();
+         //           new TopAniHandlerHide(cardView).sendMessage();
                 }
             }
         });
@@ -307,12 +307,12 @@ public class LocationMainActivity extends AppCompatActivity {
                     cardView.setClickable(false);
                     flag2 = false;
                     mBaiduMap.clear();
-                    new TopAniHandlerHide(cardView).sendMessage();
+                  //  new TopAniHandlerHide(cardView).sendMessage();
                 }
 
                 CardView cardView=findViewById(R.id.navigation_button);
                 ((TextView)findViewById(R.id.navigation_textTop)).setText("点击开启导航");
-                new TopAniHandlerShow(cardView).sendMessage();
+              //  new TopAniHandlerShow(cardView).sendMessage();
                 cardView.setClickable(true);
 
                 String destination = autoCompleteTextView.getText().toString();//获得用户目的地
@@ -339,7 +339,7 @@ public class LocationMainActivity extends AppCompatActivity {
                 }else {
                     CardView cardView=findViewById(R.id.navigation_button);
                     cardView.setClickable(false);
-                    new TopAniHandlerHide(cardView).sendMessage();
+                  //  new TopAniHandlerHide(cardView).sendMessage();
                     threadFlag = false;
                     Toast.makeText(LocationMainActivity.locationMainActivity,"跟随导航已经停止",Toast.LENGTH_SHORT).show();
                 }
@@ -353,7 +353,7 @@ public class LocationMainActivity extends AppCompatActivity {
                 cardView.setClickable(false);
                 flag2=false;
                 mBaiduMap.clear();
-                new TopAniHandlerHide(cardView).sendMessage();
+               // new TopAniHandlerHide(cardView).sendMessage();
                 findViewById(R.id.card).setVisibility(View.INVISIBLE);
             }
         });
@@ -525,30 +525,30 @@ public class LocationMainActivity extends AppCompatActivity {
         BottomAniHandler handler=new BottomAniHandler(cardView,textView);
         handler.sendMessage();
     }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        // Toast.makeText(MainActivity.this, "slipe", Toast.LENGTH_SHORT).show();
-        // 继承了Activity的onTouchEvent方法，直接监听点击事件
-        switch (ev.getAction() ) {
-            case MotionEvent.ACTION_DOWN:
-                //当手指按下的时候
-                x1 = ev.getX();
-                y1 = ev.getY();
-                break;
-            case MotionEvent.ACTION_UP:
-                //当手指离开的时候
-                x2 = ev.getX();
-                y2 = ev.getY();
-                if(y1 - y2 > 50) {
-                    floatingActionsMenu.animate().translationY(-300).setDuration(500);
-                } else if(y2 - y1 > 50) {
-                    floatingActionsMenu.animate().translationY(0).setDuration(500);
-                }
-                break;
-            default:
-                break;
-        }
-        return super.dispatchTouchEvent(ev);
-    }
+//
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent ev) {
+//        // Toast.makeText(MainActivity.this, "slipe", Toast.LENGTH_SHORT).show();
+//        // 继承了Activity的onTouchEvent方法，直接监听点击事件
+//        switch (ev.getAction() ) {
+//            case MotionEvent.ACTION_DOWN:
+//                //当手指按下的时候
+//                x1 = ev.getX();
+//                y1 = ev.getY();
+//                break;
+//            case MotionEvent.ACTION_UP:
+//                //当手指离开的时候
+//                x2 = ev.getX();
+//                y2 = ev.getY();
+//                if(y1 - y2 > 50) {
+//                  //  floatingActionsMenu.animate().translationY(-300).setDuration(500);
+//                } else if(y2 - y1 > 50) {
+//                  //  floatingActionsMenu.animate().translationY(0).setDuration(500);
+//                }
+//                break;
+//            default:
+//                break;
+//        }
+//        return super.dispatchTouchEvent(ev);
+//    }
 }

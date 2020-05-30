@@ -34,11 +34,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView NewsPic;
         TextView title;
+        TextView date;
 
         public ViewHolder(@NonNull View itemView) {
 
             super(itemView);
             title = itemView.findViewById(R.id.news_title_text);
+            date=itemView.findViewById(R.id.news_date);
         }
     }
 
@@ -56,6 +58,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
         final News news = mNewsList.get(position);
         holder.title.setText(news.getTitle());
+        holder.date.setText(news.getDade());
         holder.title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
