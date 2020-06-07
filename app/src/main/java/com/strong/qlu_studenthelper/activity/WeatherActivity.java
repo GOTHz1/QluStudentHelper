@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bumptech.glide.Glide;
 import com.strong.qlu_studenthelper.R;
 import com.strong.qlu_studenthelper.weather.gson.Weather;
 import com.strong.qlu_studenthelper.weather.service.AutoUpdateService;
@@ -50,6 +52,7 @@ public class WeatherActivity extends AppCompatActivity {
     private TextView windSpd;
     private TextView sportText;
     private  TextView currenthumText;
+    private ImageView imageView;
 //    private ImageView bingPicImg;
     private String mWeatherId;
 
@@ -74,6 +77,7 @@ public class WeatherActivity extends AppCompatActivity {
         windSc = findViewById(R.id.win_sc_text);
         windSpd = findViewById(R.id.wind_spd_text);
         currenthumText=findViewById(R.id.currenthum);
+        imageView=findViewById(R.id.bing_pic_img);
         comfortText = findViewById(R.id.comfort_text);
         sportText = findViewById(R.id.sport_text);
         drawerButton=findViewById(R.id.navBtn);
@@ -189,8 +193,31 @@ public class WeatherActivity extends AppCompatActivity {
         comfortText.setText("舒适度：" + weather.getHeWeather6().get(0).getLifestyle().get(0).getTxt());
         sportText.setText("运动指数：" + weather.getHeWeather6().get(0).getLifestyle().get(3).getTxt());
         weatherLayout.setVisibility(View.VISIBLE);
+        String condcode=weather.getHeWeather6().get(0).getNowX().getCond_code();
+        if(condcode.equals("100")){
+            GlideImage(R.drawable.bg_clear_day);
+        }else if (condcode.equals("101")||condcode.equals("102")||condcode.equals("103")){
+            GlideImage(R.drawable.bg_partly_cloudy_day);
+        }else if(condcode.startsWith("2")){
+            GlideImage(R.drawable.bg_wind);
+        }
+        else if (condcode.startsWith("3")){
+            GlideImage(R.drawable.bg_rain);
+        }
+        else if(condcode.startsWith("4")){
+            GlideImage(R.drawable.bg_snow);
+        }
+        else if(condcode.startsWith("5")){
+            GlideImage(R.drawable.bg_fog);
+        }
+
+
         Intent intent = new Intent(this, AutoUpdateService.class);
         startService(intent);
+    }
+
+    private void GlideImage(int bg_cloudy) {
+        Glide.with(getApplication()).load(bg_cloudy).into(imageView);
     }
 
 }

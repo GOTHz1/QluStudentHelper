@@ -25,6 +25,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -52,6 +54,7 @@ public class ScoreActivity extends AppCompatActivity {
     TextView scoreNum;
     TextView scoreLow;
     RecyclerView recyclerView;
+    LinearLayoutManager scoreLinear;
     List<Score> mScoreList=new ArrayList<>();
     LinearLayoutManager layoutManager;
     Score score=new Score();
@@ -68,7 +71,6 @@ public class ScoreActivity extends AppCompatActivity {
         }
 
     };
-
     @SuppressLint("ResourceAsColor")
     private void dealMyScore(String getScore) {
         Gson gson = new Gson();
@@ -78,29 +80,32 @@ public class ScoreActivity extends AppCompatActivity {
             Toast.makeText(ScoreActivity.this, "查询成功！", Toast.LENGTH_SHORT).show();
            List<Score> scoreList = gson.fromJson(getScore, new TypeToken<List<Score>>() {
             }.getType());
-
+            Collections.sort(scoreList, new Comparator<Score>() {
+                @Override
+                public int compare(Score o1, Score o2) {
+                    return new Double(o1.getZcj()).compareTo(new Double(o2.getZcj()));
+                }
+            });
            mScoreList.clear();
             for (int i = 0; i < scoreList.size(); i++) {
                 mScoreList.add(scoreList.get(i));
                 if (Double.parseDouble(scoreList.get(i).getZcj())<60){
                     lowScore++;
-
-
                 }
             }
-
             scoreName.setText("姓名:"+scoreList.get(0).getXm());
             scoreTime.setText(flag==false?"全部成绩":"学期:"+scoreList.get(0).getXqmc());
             scoreNum.setText("课程数量:"+String.valueOf(mScoreList.size()));
             scoreLow.setText("不及格数："+String.valueOf(lowScore));
+            lowScore=0;
             recyclerView.setAdapter(adapter);
+            recyclerView.setItemViewCacheSize(600);
             adapter.notifyDataSetChanged();
-            Log.d("TAG", "dealMyScore: "+mScoreList.get(1).getKcmc()+mScoreList.size());
-
 
         }
     }
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,26 +126,17 @@ public class ScoreActivity extends AppCompatActivity {
         xueqi = findViewById(R.id.score_xueqi);
         layoutManager=new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter=new ScoreAdapter(mScoreList);
+        adapter=new ScoreAdapter(mScoreList, scoreTime,scoreName,scoreNum,scoreLow);
         recyclerView.setAdapter(adapter);
-
-
-
         SharedPreferences preferencesDate = getSharedPreferences("date", MODE_PRIVATE);
         Vyear = preferencesDate.getString("year", "2020");
         Vxueqi = preferencesDate.getString("xueqi", "1");
-
-
         year.setMaxValue(2025);
         year.setMinValue(2016);
         year.setValue(Integer.parseInt(Vyear));//无法将值设置在最大最小值之前
-
-
         xueqi.setMinValue(1);
         xueqi.setMaxValue(2);
         xueqi.setValue(Integer.parseInt(Vxueqi));
-
-
             buttonGetAll.setEnabled(false);
             buttonGetAll.setText("或重新进入");
             buttonGetScore.setEnabled(false);
@@ -162,7 +158,6 @@ public class ScoreActivity extends AppCompatActivity {
             }
         });
     }
-
     private void getAllScore() {
         new Thread(new Runnable() {
             @Override
@@ -173,8 +168,6 @@ public class ScoreActivity extends AppCompatActivity {
                             .url("http://jwxt.qlu.edu.cn/app.do?method=getCjcx&xh=" + id + "&xnxqid=")
                             .header("token", mtaken)
                             .build();
-
-
                     Log.d("TAG", "5run: "+request.toString());
                     Response response = client.newCall(request).execute();
                     Log.d("TAG", "2run: ");
@@ -189,7 +182,6 @@ public class ScoreActivity extends AppCompatActivity {
             }
         }).start();
     }
-
     private void getScore() {
         year2 = String.valueOf(year.getValue() + 1);
         new Thread(new Runnable() {
@@ -201,12 +193,9 @@ public class ScoreActivity extends AppCompatActivity {
                             .url("http://jwxt.qlu.edu.cn/app.do?method=getCjcx&xh=" + id + "&xnxqid=" + year.getValue() + "-" + year2 + "-" + xueqi.getValue())
                             .header("token", mtaken)
                             .build();
-
-
                     Log.d("TAG", "5run: "+request.toString());
                     Response response = client.newCall(request).execute();
                     Log.d("TAG", "2run: ");
-
                     getScore = response.body().string();
                     Log.d("TAG", "4run: "+getScore.length());
                     Message message = new Message();
@@ -218,7 +207,6 @@ public class ScoreActivity extends AppCompatActivity {
             }
         }).start();
     }
-
     void gettaken(){
         new Thread(new Runnable() {
             @Override

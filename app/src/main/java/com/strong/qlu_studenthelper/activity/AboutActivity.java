@@ -30,9 +30,14 @@ public class AboutActivity extends AppCompatActivity {
                 .addGroup("作者信息：")
                 .addItem(chatQQ())
                 .addEmail("gothz1@outlook.com","邮箱")
-                .addWebsite("19960218.xyz","Blog")
+                //.addWebsite("19960218.xyz","Blog")
                 .addGitHub("GOTHz1","GitHub")
-                .addItem(new Element().setTitle("Version 1.0").setGravity(Gravity.CENTER))
+                .addItem(new Element().setTitle("Version 1.0").setGravity(Gravity.CENTER).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(AboutActivity.this,"更新将会在首页提示哦",Toast.LENGTH_SHORT).show();
+                    }
+                }))
                 .addItem(getCopyRightsElement())
                 .create();
     setContentView(aboutPage);
@@ -57,7 +62,7 @@ public class AboutActivity extends AppCompatActivity {
     }
     Element getCopyRightsElement() {
         Element copyRightsElement = new Element();
-        final String copyrights ="Copyrights © 2019-"+ Calendar.getInstance().get(Calendar.YEAR);
+        final String copyrights ="Copyrights 2019-"+ Calendar.getInstance().get(Calendar.YEAR);
         copyRightsElement.setTitle(copyrights);
         copyRightsElement.setIconDrawable(R.drawable.copyright);
         copyRightsElement.setIconTint(mehdi.sakout.aboutpage.R.color.about_item_icon_color);

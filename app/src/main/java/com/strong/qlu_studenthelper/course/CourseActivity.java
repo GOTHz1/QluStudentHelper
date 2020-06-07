@@ -27,18 +27,14 @@ public class CourseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
     }
-
     boolean flag;
     //星期几
     private RelativeLayout day;
-
     //SQLite Helper类
     private DatabaseHelper databaseHelper = new DatabaseHelper
             (this, "database.db", null, 2);
-
     int currentCoursesNumber = 0;
     int maxCoursesNumber = 0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +45,6 @@ public class CourseActivity extends AppCompatActivity {
         //从数据库读取数据
         loadData();
     }
-
     //从数据库加载数据
     private void loadData() {
         ArrayList<Course> coursesList = new ArrayList<>(); //课程列表
@@ -67,14 +62,12 @@ public class CourseActivity extends AppCompatActivity {
             } while(cursor.moveToNext());
         }
         cursor.close();
-
         //使用从数据库读取出来的课程信息来加载课程表视图
         for (Course course : coursesList) {
             createLeftView(course);
             createItemCourseView(course);
         }
     }
-
     //保存数据到数据库
     private void saveData(Course course) {
         SQLiteDatabase sqLiteDatabase =  databaseHelper.getWritableDatabase();
@@ -88,8 +81,6 @@ public class CourseActivity extends AppCompatActivity {
                         course.getEnd()+""}
                 );
     }
-
-
     //创建"第几节数"视图
     private void createLeftView(Course course) {
         int endNumber = course.getEnd();
@@ -108,7 +99,6 @@ public class CourseActivity extends AppCompatActivity {
             maxCoursesNumber = endNumber;
         }
     }
-
     //创建单个课程视图
     private void createItemCourseView(final Course course) {
         int getDay = course.getDay();
@@ -126,7 +116,6 @@ public class CourseActivity extends AppCompatActivity {
                 case 7: dayId = R.id.weekday; break;
             }
             day = findViewById(dayId);
-
             int height = 180;
             final View v = LayoutInflater.from(this).inflate(R.layout.course_card, null); //加载单个课程布局
             v.setY(height * (course.getStart()-1)); //设置开始高度,即第几节课开始
@@ -137,8 +126,6 @@ public class CourseActivity extends AppCompatActivity {
             text.setTextSize(10.2f);
                 text.setText(course.getCourseName() + "\n" + course.getTeacher() + "\n" + course.getClassRoom()); //显示课程名
                 day.addView(v);
-
-
             //长按删除课程
             v.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -149,20 +136,15 @@ public class CourseActivity extends AppCompatActivity {
                         SQLiteDatabase sqLiteDatabase = databaseHelper.getWritableDatabase();
                         sqLiteDatabase.execSQL("delete from courses where course_name = ?", new String[]{course.getCourseName()});
                         return true;
-
                 }
             });
         }
     }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_course, menu);
         return true;
     }
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -178,7 +160,6 @@ public class CourseActivity extends AppCompatActivity {
         }
         return true;
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -194,6 +175,4 @@ public class CourseActivity extends AppCompatActivity {
             saveData(course);
         }
     }
-
-
 }
