@@ -37,7 +37,6 @@
                 app:fab_addButtonColorPressed="@color/baseBlue"
                 app:fab_expandDirection="up"
                 app:fab_labelStyle="@style/floatingActionsMenu_fab_style">
-
                 <com.getbase.floatingactionbutton.FloatingActionButton
                     android:id="@+id/action_book_search"
                     android:layout_width="wrap_content"
@@ -49,7 +48,7 @@
                     app:fab_title="馆藏查询" />
 
                 <com.getbase.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/quanjing"
+                    android:id="@+id/quanjinggongda"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:fab_colorNormal="@color/blue_a400"

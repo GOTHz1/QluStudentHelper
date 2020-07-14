@@ -86,7 +86,7 @@ public class HomeActivity extends BaseActivity {
             }
         });
 
-        final FloatingActionButton quanjing = findViewById(R.id.quanjing);
+        final FloatingActionButton quanjing = findViewById(R.id.quanjinggongda);
         quanjing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -236,7 +236,9 @@ public class HomeActivity extends BaseActivity {
         sinfo.setText(name);
         if (preferences.getString("name", null) == null) {
             imageView.setImageResource(R.drawable.noneuser);
-        } else imageView.setImageResource(R.drawable.studenthead);
+        } else {
+            imageView.setImageResource(R.drawable.studenthead);
+        }
     }
 
 }

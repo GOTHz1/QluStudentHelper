@@ -20,7 +20,6 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         View aboutPage = new AboutPage(this)
                 .isRTL(false)
                 .setDescription("齐鲁工业大学\n计算机科学与技术学院\n2020届毕业生の毕业设计")
